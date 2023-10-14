@@ -1,8 +1,11 @@
 import React from "react";
-import "./HomePage.css";
+import "./Home.css";
 import MapComponent from  "./components/MapComponent";
+import ChatboxComponent from "./components/ChatboxComponent";
 const token = sessionStorage.getItem("token");
-function HomePage() {
+
+function Home() {
+  const [apiResponse, setApiResponse] = React.useState('');
   return (
     <div className="home-page">
       <aside className="sidebar">
@@ -61,12 +64,12 @@ function HomePage() {
         </div>
 
         <div className="chat-bot">
-          {/* Placeholder for the chatbot */}
-          Chatbot Here
+          <ChatboxComponent  />
+          
         </div>
       </main>
     </div>
   );
 }
 
-export default HomePage;
+export default Home;
