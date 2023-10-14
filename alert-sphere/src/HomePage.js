@@ -1,9 +1,8 @@
 import React from "react";
 import "./HomePage.css";
-
+import MapComponent from  "./components/MapComponent";
+const token = sessionStorage.getItem("token");
 function HomePage() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
   return (
     <div className="home-page">
       <aside className="sidebar">
@@ -30,7 +29,7 @@ function HomePage() {
 
       <main className="content">
         <div className="login-status">
-          {isLoggedIn ? (
+          {token ? (
             <div className="user-info">
               <img
                 src="user-avatar.png"
@@ -41,14 +40,15 @@ function HomePage() {
             </div>
           ) : (
             <div className="login-register-prompt">
-              <span>Please Login/Register</span>
-              <a href="/login">Login</a>
-              <a href="/register">Register</a>
+              <span>Please  <a href="/login">Login</a>/<a href="/register">Register</a></span>
+             
+              
             </div>
           )}
         </div>
+
         <div className="map">
-          {/* Placeholder for the map */}
+          <MapComponent />
           <div className="map-overlay">
             <div className="map-searchbox">
               <input type="text" placeholder="Search..." />
@@ -59,6 +59,7 @@ function HomePage() {
             </div>
           </div>
         </div>
+
         <div className="chat-bot">
           {/* Placeholder for the chatbot */}
           Chatbot Here
