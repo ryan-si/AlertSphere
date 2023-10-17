@@ -6,8 +6,12 @@ const token = sessionStorage.getItem("token");
 
 function Home() {
   const [apiResponse, setApiResponse] = React.useState('');
+
   return (
+   
     <div className="home-page">
+      {<div>if(token){console.log("logged")} else {console.log("not log")}
+        </div>}
       <aside className="sidebar">
         <div className="company-section">
           <img

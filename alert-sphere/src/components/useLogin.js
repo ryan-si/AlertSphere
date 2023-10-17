@@ -16,7 +16,7 @@ export function useLogin() {
   }, []);
 
   function login() {
-    const url = "";
+    const url = "http://10.16.92.77:8080/emergency/user/login";
     fetch(url, {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ export function useLogin() {
     })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error !== 200) {
+      if (res.code !== 200) {
         throw new Error(res.msg);
       }
       return res;

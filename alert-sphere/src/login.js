@@ -71,7 +71,7 @@ export default function Login() {
             </div>
           </form>
 
-          <p className="mt-5 text-center text-sm text-gray-500">
+          <div className="mt-5 text-center text-sm text-gray-500">
             Not a member?{" "}
             <a
               href="/register"
@@ -79,8 +79,8 @@ export default function Login() {
             >
               Register a New Account
             </a>
-            <div>&nbsp;</div>
-          </p>
+            <br />
+          </div>
         </div>
       </div>
     </div>

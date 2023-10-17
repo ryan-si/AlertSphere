@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
-
+import useRegister from './components/useRegister';
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,6 +8,13 @@ export default function Register() {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [state, setState] = useState("");
+  const { register, loading, error } = useRegister();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = { email, password, mobile, address1, address2, state };
+    await register(data);
+  };
 
   return (
     <div className="flex min-h-screen flex-1 justify-center px-6 py-12 lg:px-8 bg-gray-200">
