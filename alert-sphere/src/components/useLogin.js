@@ -15,32 +15,34 @@ export function useLogin() {
     }
   }, []);
 
-  function login() {
-    const url = "http://10.16.92.77:8080/emergency/user/login";
+  function login(event) {
+    event.preventDefault();
+    const url = "http://10.19.229.4:8080/emergency/user/login";
     fetch(url, {
       method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({ user_email: email, password: password }),
     })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.code !== 200) {
-        throw new Error(res.msg);
-      }
-      return res;
-    })
-    .then((res) => {
-      sessionStorage.setItem("token", res.data.token);
-    })
-    .catch((err) => setMsg(err.msg));
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.code !== 200) {
+          throw new Error(res.msg);
+        }
+        return res;
+      })
+      .then((res) => {
+        sessionStorage.setItem("token", res.data.token);
+      })
+      .catch((err) => setMsg(err.msg));
   }
 
   useEffect(() => {
     if (token) {
-      navigate("/homePage");
+      navigate("/");
       sessionStorage.setItem("email", email);
     }
   }, [msg, token, email, navigate]);
@@ -51,6 +53,6 @@ export function useLogin() {
     password,
     setPassword,
     msg,
-    login
+    login,
   };
 }

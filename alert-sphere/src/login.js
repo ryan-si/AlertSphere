@@ -1,12 +1,10 @@
 import React from "react";
 import "./Login.css";
-import { useLogin } from "./components/useLogin"
+import { useLogin } from "./components/useLogin";
 // import styles from "./signin.module.css";
 
 export default function Login() {
-  const {
-    email, setEmail, password, setPassword, msg, login
-  } = useLogin();
+  const { email, setEmail, password, setPassword, msg, login } = useLogin();
 
   return (
     <div className="flex min-h-screen flex-1 flex-auto justify-center px-6 py-12 lg:px-8 bg-gray-200">
@@ -18,7 +16,7 @@ export default function Login() {
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-5">
-          <form className="space-y-6" onSubmit={login}>
+          <form className="space-y-6" onSubmit={(event) => login(event)}>
             <div>
               <label
                 htmlFor="email"
