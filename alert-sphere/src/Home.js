@@ -1,11 +1,39 @@
 import React from "react";
 import "./Home.css";
+import { useState } from "react";
 import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
-const token = sessionStorage.getItem("token");
+// const token = sessionStorage.getItem("token");
+// const email = sessionStorage.getItem("email");
 
 function Home() {
   const [apiResponse, setApiResponse] = React.useState("");
+  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
+  const [token, setToken] = useState(sessionStorage.getItem("token") || "");
+
+  function handleLogout() {
+    // Send a POST request to the server to logout
+    fetch("http://10.19.229.4:8080/emergency/user/logout", {
+      method: "POST",
+      headers: {
+        // Set headers if needed, e.g., for authentication
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data if needed
+        console.log(data);
+        // Remove the token from sessionStorage after successful logout
+        sessionStorage.removeItem("token");
+        // Optionally, redirect user to login page
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  }
 
   return (
     <div className="home-page">
@@ -29,10 +57,11 @@ function Home() {
         <div className="footer-links">
           <a href="#">Help Centre</a>
           <a href="#">Contact us</a>
-          <a href="#">Log out</a>
+          <a href="#" onClick={handleLogout}>
+            Log out
+          </a>
         </div>
       </aside>
-
       <main className="content">
         <div className="login-status">
           {token ? (
@@ -42,7 +71,7 @@ function Home() {
                 alt="User Avatar"
                 className="user-avatar"
               />
-              <span>Username</span>
+              <span>{email}</span>
             </div>
           ) : (
             <div className="login-register-prompt">

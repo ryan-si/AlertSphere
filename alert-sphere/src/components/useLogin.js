@@ -36,16 +36,18 @@ export function useLogin() {
       })
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("email", email);
+        navigate("/");
       })
       .catch((err) => setMsg(err.msg));
   }
 
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-      sessionStorage.setItem("email", email);
-    }
-  }, [msg, token, email, navigate]);
+  // useEffect(() => {
+  //   if (token != null) {
+  //     navigate("/");
+  //     sessionStorage.setItem("email", email);
+  //   }
+  // }, [msg, token, email, navigate]);
 
   return {
     email,
