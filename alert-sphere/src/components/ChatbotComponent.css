@@ -1,0 +1,24 @@
+.chatbot-container {
+  position: fixed;
+  bottom: 1rem;
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: auto; /* 默认宽度 */
+  height: auto; /* 默认高度 */
+
+  /* 添加 width 和 height 到 transition 中 */
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  animation: fadeIn 0.5s forwards;
+}
+
+.chatbot-container.w-4-5 {
+  width: 80%;
+}
+
+.chatbot-container.h-half {
+  height: 50%;
+}

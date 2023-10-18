@@ -3,6 +3,9 @@ import "./Home.css";
 import { useState } from "react";
 import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
+import Sidebar from "./SideBar";
+import Topbar from "./TopBar";
+import AskMeComponent from "./components/AskMeComponent";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -39,7 +42,8 @@ function Home() {
     <div className="home-page">
       {/* {<div>if(token){console.log("logged")} else {console.log("not log")}
         </div>} */}
-      <aside className="sidebar">
+      <Sidebar />
+      {/* <aside className="sidebar">
         <div className="company-section">
           <img
             src="company-logo.png"
@@ -61,9 +65,10 @@ function Home() {
             Log out
           </a>
         </div>
-      </aside>
+      </aside> */}
       <main className="content">
-        <div className="login-status">
+        <Topbar></Topbar>
+        {/* <div className="login-status">
           {token ? (
             <div className="user-info">
               <img
@@ -81,7 +86,7 @@ function Home() {
               </span>
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="map">
           <MapComponent />
@@ -94,6 +99,7 @@ function Home() {
               Diagnosis Count Here
             </div>
           </div>
+          {/* <AskMeComponent /> */}
         </div>
 
         <div className="chat-bot">

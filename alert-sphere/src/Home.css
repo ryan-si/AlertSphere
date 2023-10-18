@@ -86,6 +86,7 @@
 }
 
 .map-overlay {
+  height: 98%;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -111,6 +112,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
   margin-bottom: 10px; /* 如果你希望元素之间有一些间距 */
+  flex-grow: 1;
 }
 
 .trend-info {

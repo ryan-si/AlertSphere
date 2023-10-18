@@ -1,0 +1,23 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+}
+/* HealthTips.css */
+.transition-transform {
+  transition: transform 0.1s ease-out;
+}
+
+/* 在模态窗口弹出时添加缩放效果 */
+.transform.scale-95:hover {
+  transform: scale(1);
+}

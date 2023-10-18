@@ -6,7 +6,10 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import HomePageTest from "./HomePageTest";
+import Warnings from "./Warnings";
 import HealthTips from "./HealthTips";
+import Favorites from "./Favorites";
+import NewsPage from "./NewsPage";
 
 function App() {
   return (
@@ -15,9 +18,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/news" element={<NewsPage />} />
 
         <Route path="/homePageTest" element={<HomePageTest />} />
-        <Route path="/healthtips" element={<HealthTips />} />
+        <Route path="/warnings" element={<Warnings />} />
+        <Route path="/tips" element={<HealthTips />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
       <div className="App"></div>
     </BrowserRouter>
