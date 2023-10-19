@@ -60,36 +60,61 @@ function ChatbotComponent() {
     }
   };
 
+  /* ... 其他代码保持不变 */
+
   return (
     <div
-      className={`chatbot-container ${
-        isOpen ? "w-4-5 h-half" : "w-auto h-auto"
+      className={`chatbot-container rounded-md flex flex-col ${
+        isOpen ? "w-4-5 h-1/2" : "h-auto"
       }`}
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={() => setIsOpen(true)}
     >
-      <input
-        type="text"
-        value={inputText}
-        onChange={handleInputChange}
-        className="m-2 p-2 border rounded"
-      />
-      <button
-        onClick={handleSubmit}
-        className="m-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Submit
-      </button>
-      <div className="p-2 animate-fade-in">
+      {isOpen && (
+        <>
+          <button
+            className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full p-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+          >
+            X
+          </button>
+
+          <div className="animate-fade-in flex-grow">
+            {responses.map((msg, index) => (
+              <p key={index} className={`${msg.role} m-2`}>
+                {msg.content}
+              </p>
+            ))}
+            {loading && <p className="m-2">Loading...</p>}
+            {error && <p className="m-2 text-red-500">{error}</p>}
+          </div>
+        </>
+      )}
+
+      <div className="p-2 border-t flex ">
         {" "}
-        {/* 再次应用了 fade-in 动画 */}
-        {responses.map((msg, index) => (
-          <p key={index} className={`${msg.role} m-2`}>
-            {msg.content}
-          </p>
-        ))}
+        {/* This will be at the bottom */}
+        <img
+          src="Askme.png"
+          alt="Company Logo"
+          className="max-h-16 object-contain mr-2 "
+        />
+        <input
+          type="text"
+          placeholder="Ask me anything"
+          value={inputText}
+          onChange={handleInputChange}
+          className="m-2 p-2 border rounded flex-grow"
+        />
+        <button
+          onClick={handleSubmit}
+          className="m-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Submit
+        </button>
       </div>
-      {loading && <p className="m-2">Loading...</p>}
-      {error && <p className="m-2 text-red-500">{error}</p>}
     </div>
   );
 }

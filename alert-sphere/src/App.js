@@ -10,6 +10,7 @@ import Warnings from "./Warnings";
 import HealthTips from "./HealthTips";
 import Favorites from "./Favorites";
 import NewsPage from "./NewsPage";
+import Settings from "./Settings";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="/homePageTest" element={<HomePageTest />} />
         <Route path="/warnings" element={<Warnings />} />

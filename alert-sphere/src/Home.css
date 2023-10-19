@@ -76,13 +76,14 @@
 
 .map {
   width: 100%;
-  height: 90%;
+  height: 85%;
   border: 1px solid #e5e5e5;
   position: relative;
   margin-top: 50px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  z-index: 10;
 }
 
 .map-overlay {
@@ -125,8 +126,9 @@
 }
 
 .chat-bot {
-  width: 100%;
+  /* width: 100%;
   height: 30%;
   border-top: 1px solid #e5e5e5;
-  position: relative;
+  position: relative; */
+  z-index: 1000;
 }

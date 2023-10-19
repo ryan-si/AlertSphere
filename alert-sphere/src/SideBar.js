@@ -52,7 +52,9 @@ function Sidebar() {
         <li>
           <Link to="/favorites">Collection</Link>
         </li>
-        <li>Setting</li>
+        <li>
+          <Link to="/settings">Settings</Link>
+        </li>
       </ul>
       <div className="footer-links">
         <a href="#">Help Centre</a>

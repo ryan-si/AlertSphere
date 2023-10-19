@@ -1,24 +1,32 @@
 .chatbot-container {
-  position: fixed;
-  bottom: 1rem;
-  background-color: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border-radius: 0.5rem;
-  overflow: hidden;
-  width: auto; /* 默认宽度 */
-  height: auto; /* 默认高度 */
-
-  /* 添加 width 和 height 到 transition 中 */
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out,
-    height 0.3s ease-in-out;
-  animation: fadeIn 0.5s forwards;
+  position: absolute;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f1f1f1;
+  /* overflow: hidden; */
+  transition: height 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  z-index: 100; /* Ensure it's above other components */
 }
 
-.chatbot-container.w-4-5 {
-  width: 80%;
+.h-auto {
+  height: 84px;
 }
 
-.chatbot-container.h-half {
-  height: 50%;
+.h-half {
+  height: calc(100vh - 40px); /* Take full height minus the collapsed height */
+}
+/* 
+.flex {
+  display: flex;
+  align-items: center;
+} */
+
+.flex-grow {
+  flex-grow: 1;
 }

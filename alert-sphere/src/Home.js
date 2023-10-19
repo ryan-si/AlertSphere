@@ -102,7 +102,7 @@ function Home() {
           {/* <AskMeComponent /> */}
         </div>
 
-        <div className="chat-bot">
+        <div className="chat-bot z-50">
           <ChatbotComponent />
         </div>
       </main>
