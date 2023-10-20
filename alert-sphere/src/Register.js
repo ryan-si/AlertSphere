@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
-import useRegister from './components/useRegister';
+import useRegister from './hooks/useRegister';
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

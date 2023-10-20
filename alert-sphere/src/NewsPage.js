@@ -3,7 +3,7 @@ import Sidebar from "./SideBar";
 import NewsListCard from "./NewsListCard";
 import NewsDetail from "./NewsDetail";
 import Topbar from "./TopBar";
-import useWarnings from './components/useWarnings';
+import useWarnings from './hooks/useWarnings';
 
 function NewsPage() {
   const { data: newsList, loading, error } = useWarnings('ea96b051dee542caab35b59d44d7047b');

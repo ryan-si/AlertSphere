@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./SideBar";
 import Topbar from "./TopBar";
 import "./HealthTips.css";
+import useHealthTips from './hooks/useHealthTips'; 
 
 function truncateToWholeWord(text, maxLength) {
   if (text.length <= maxLength) return text;
