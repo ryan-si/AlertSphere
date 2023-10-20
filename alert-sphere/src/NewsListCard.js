@@ -7,14 +7,14 @@ function NewsListCard({ news, onClick }) {
       onClick={() => onClick(news)}
     >
       <img
-        src={news.thumbnail}
+        src={news.urlToImage}
         alt={news.title}
         className="w-32 h-32 object-cover"
       />
       <div className="mt-4">
         <h3 className="text-xl font-bold">{news.title}</h3>
-        <p className="text-gray-600 mt-2">{news.summary}</p>
-        <span className="text-sm text-gray-500">{news.date}</span>
+        <p className="text-gray-600 mt-2">{news.description}</p>
+        <span className="text-sm text-gray-500">{news.publishedAt}</span>
       </div>
     </div>
   );

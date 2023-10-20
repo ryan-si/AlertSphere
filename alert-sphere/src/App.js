@@ -22,11 +22,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/settingdetail" element={<SettingDetail />} />
+        <Route path="/settingDetail" element={<SettingDetail />} />
 
         <Route path="/homePageTest" element={<HomePageTest />} />
         <Route path="/warnings" element={<Warnings />} />
-        <Route path="/tips" element={<HealthTips />} />
+        <Route path="/healthTips" element={<HealthTips />} />
         <Route path="/favorites" element={<Favorites />} />
       </Routes>
       <div className="App"></div>

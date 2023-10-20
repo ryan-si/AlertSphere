@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Sidebar from "./SideBar";
 import Topbar from "./TopBar";
 
-function HealthTips() {
+function Warnings() {
   const [selectedTip, setSelectedTip] = useState(null);
   const tips = [
     {
@@ -59,4 +59,4 @@ function HealthTips() {
   );
 }
 
-export default HealthTips;
+export default Warnings;
