@@ -11,6 +11,7 @@ import HealthTips from "./HealthTips";
 import Favorites from "./Favorites";
 import NewsPage from "./NewsPage";
 import Settings from "./Settings";
+import SettingDetail from "./SettingDetail";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/settingdetail" element={<SettingDetail />} />
 
         <Route path="/homePageTest" element={<HomePageTest />} />
         <Route path="/warnings" element={<Warnings />} />
