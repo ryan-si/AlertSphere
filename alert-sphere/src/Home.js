@@ -5,6 +5,7 @@ import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
 import Sidebar from "./SideBar";
 import Topbar from "./TopBar";
+import SearchBarComponent from './components/SearchBarComponent';
 import AskMeComponent from "./components/AskMeComponent";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
@@ -13,6 +14,7 @@ function Home() {
   const [apiResponse, setApiResponse] = React.useState("");
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
+  const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
 
   function handleLogout() {
     // Send a POST request to the server to logout
@@ -89,10 +91,10 @@ function Home() {
         </div> */}
 
         <div className="map">
-          <MapComponent />
+          <MapComponent center={mapCenter} />
           <div className="map-overlay">
             <div className="map-searchbox">
-              <input type="text" placeholder="Search..." />
+              <SearchBarComponent onAddressSelect={setMapCenter} />
             </div>
             <div className="map-info-box trend-info">Disease Trend Here</div>
             <div className="map-info-box diagnosis-info">

@@ -47,7 +47,7 @@ function Sidebar() {
           <Link to="/news">Warnings</Link>
         </li>
         <li>
-          <Link to="/tips">Health tips</Link>
+          <Link to="/healthTips">Health tips</Link>
         </li>
         <li>
           <Link to="/favorites">Collection</Link>
