@@ -3,8 +3,8 @@ import "./Home.css";
 import { useState } from "react";
 import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
-import Sidebar from "./SideBar";
-import Topbar from "./TopBar";
+import SideBarComponent from "./components/SideBarComponent";
+import TopBarComponent from "./components/TopBarComponent";
 import SearchBarComponent from './components/SearchBarComponent';
 import AskMeComponent from "./components/AskMeComponent";
 // const token = sessionStorage.getItem("token");
@@ -44,7 +44,7 @@ function Home() {
     <div className="home-page">
       {/* {<div>if(token){console.log("logged")} else {console.log("not log")}
         </div>} */}
-      <Sidebar />
+      <SideBarComponent />
       {/* <aside className="sidebar">
         <div className="company-section">
           <img
@@ -69,7 +69,7 @@ function Home() {
         </div>
       </aside> */}
       <main className="content">
-        <Topbar></Topbar>
+        <TopBarComponent></TopBarComponent>
         {/* <div className="login-status">
           {token ? (
             <div className="user-info">

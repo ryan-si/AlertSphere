@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "./SideBar";
-import Topbar from "./TopBar";
+import SideBarComponent from "./components/SideBarComponent";
+import TopBarComponent from "./components/TopBarComponent";
 import { useLocation } from "react-router-dom";
 
 function SettingDetail() {
@@ -15,10 +15,10 @@ function SettingDetail() {
   return (
     <div className="h-screen flex flex-col">
       {/* Topbar */}
-      <Topbar />
+      <TopBarComponent />
 
       <div className="flex flex-1">
-        <Sidebar />
+        <SideBarComponent />
 
         <div className="flex-1 p-8 space-y-6 overflow-y-auto">
           <h1 className="text-2xl font-bold">{title}</h1>

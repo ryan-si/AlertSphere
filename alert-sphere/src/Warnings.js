@@ -1,8 +1,7 @@
 // HealthTips.js
 import React, { useState } from "react";
-import Sidebar from "./SideBar";
-import Topbar from "./TopBar";
-
+import SideBarComponent from "./components/SideBarComponent";
+import TopBarComponent from "./components/TopBarComponent";
 function Warnings() {
   const [selectedTip, setSelectedTip] = useState(null);
   const tips = [
@@ -19,8 +18,8 @@ function Warnings() {
   return (
     <div className="flex">
       {/* Left Side */}
-      <Sidebar />
-      <Topbar></Topbar>
+      <SideBarComponent />
+      <TopBarComponent></TopBarComponent>
 
       <aside className="w-1/3 h-screen overflow-y-auto border-r">
         {tips.map((tip, index) => (

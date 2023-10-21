@@ -6,27 +6,23 @@ function useWarnings(apiKey) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=au&category=health&apiKey=${apiKey}`);
-        
+    fetch('https://newsapi.org/v2/everything?q=disease&language=en&apiKey=ea96b051dee542caab35b59d44d7047b')
+      .then(response => {
         if (!response.ok) {
-          const responseBody = await response.json();
-          console.error("API Error Response:", responseBody);  // Log the error response for more details
-          throw new Error(`API Error: ${responseBody.message || 'Network response was not ok'}`);
+          throw new Error('An error occurred while fetching data.');
         }
-        
-        const result = await response.json();
-        setData(result.articles);
-      } catch (error) {
-        setError(error);
-      } finally {
+        return response.json();
+      })
+      .then(result => {
+        setData(result.articles); 
         setLoading(false);
-      }
-    };
-
-    fetchData();
+      })
+      .catch(err => {
+        setError(err);
+        setLoading(false);
+      });
   }, []);
+     
 
   return { data, loading, error };
 }

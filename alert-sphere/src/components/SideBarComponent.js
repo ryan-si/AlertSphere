@@ -1,9 +1,9 @@
 import React from "react";
-import "./SideBar.css";
+import "./SideBarComponent.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Sidebar() {
+function SideBarComponent() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
 
   const handleLogout = () => {
@@ -67,4 +67,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default SideBarComponent;

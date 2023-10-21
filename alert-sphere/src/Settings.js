@@ -1,7 +1,7 @@
 import React from "react";
 import CardComponent from "./components/CardComponent";
-import Sidebar from "./SideBar";
-import Topbar from "./TopBar";
+import SideBarComponent from "./components/SideBarComponent";
+import TopBarComponent from "./components/TopBarComponent";
 import { useState } from "react";
 import SettingDetail from "./SettingDetail";
 import { Link } from "react-router-dom";
@@ -11,9 +11,9 @@ function Settings() {
   return (
     <div className="h-screen flex flex-col">
       {/* Topbar */}
-      <Topbar />
+      <TopBarComponent />
       <div className="flex flex-1">
-        <Sidebar />
+        <SideBarComponent />
         <div className="flex-1 p-8 space-y-6 overflow-y-auto">
           <h1 className="text-2xl font-bold">Welcome to use, Ryan.</h1>
           <p>

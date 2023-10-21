@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import "./TopBar.css";
+import "./TopBarComponent.css";
 
-function Topbar() {
+function TopBarComponent() {
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
 
@@ -28,4 +28,4 @@ function Topbar() {
   );
 }
 
-export default Topbar;
+export default TopBarComponent;

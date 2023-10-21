@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "./SideBar";
-import Topbar from "./TopBar";
+import SideBarComponent from "./components/SideBarComponent";
+import TopBarComponent from "./components/TopBarComponent";
 // import './Favorites.css'; // For custom styles if needed
 
 function Favorites() {
@@ -37,10 +37,10 @@ function Favorites() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <SideBarComponent />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar />
+        <TopBarComponent />
 
         {/* Main content */}
         <div className="flex p-6">
