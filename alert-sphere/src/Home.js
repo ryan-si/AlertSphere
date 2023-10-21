@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
 import SideBarComponent from "./components/SideBarComponent";
@@ -41,6 +41,24 @@ function Home() {
         console.error("Error logging out:", error);
       });
   }
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude: lat, longitude: lng } = position.coords;
+          const userLocation = { lat, lng };
+          setMapCenter(userLocation);
+          setMarkerPosition(userLocation);
+        },
+        (error) => {
+          console.error("Error obtaining geolocation:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation not supported by this browser");
+    }
+  }, []);
 
   return (
     <div className="home-page">
