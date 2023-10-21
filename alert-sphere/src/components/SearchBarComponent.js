@@ -6,6 +6,9 @@ import PlacesAutocomplete, {
 
 const SearchBarComponent = ({ onAddressSelect }) => {
   const [address, setAddress] = useState("");
+  const searchOptions = {
+    componentRestrictions: { country: "au" }, // 仅限制在澳大利亚搜索地址
+  };
 
   return (
     <PlacesAutocomplete
@@ -18,6 +21,7 @@ const SearchBarComponent = ({ onAddressSelect }) => {
         setAddress(value);
         onAddressSelect(latLng); // Pass the coordinates to the parent component
       }}
+      searchOptions={searchOptions}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>

@@ -15,6 +15,8 @@ function Home() {
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
+  const [markerPosition, setMarkerPosition] = useState(null);
+  const [zoom, setZoom] = useState(10); // 初始缩放级别为10
 
   function handleLogout() {
     // Send a POST request to the server to logout
@@ -91,10 +93,20 @@ function Home() {
         </div> */}
 
         <div className="map">
-          <MapComponent center={mapCenter} />
+          <MapComponent
+            center={mapCenter}
+            markerPosition={markerPosition}
+            zoom={zoom}
+          />
           <div className="map-overlay">
             <div className="map-searchbox z-100">
-              <SearchBarComponent onAddressSelect={setMapCenter} />
+              <SearchBarComponent
+                onAddressSelect={(latLng) => {
+                  setMapCenter(latLng);
+                  setMarkerPosition(latLng);
+                  setZoom(15);
+                }}
+              />
             </div>
             <div className="map-info-box trend-info z-50">
               Disease Trend Here
