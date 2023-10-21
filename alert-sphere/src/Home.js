@@ -5,7 +5,7 @@ import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
 import SideBarComponent from "./components/SideBarComponent";
 import TopBarComponent from "./components/TopBarComponent";
-import SearchBarComponent from './components/SearchBarComponent';
+import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
@@ -93,11 +93,13 @@ function Home() {
         <div className="map">
           <MapComponent center={mapCenter} />
           <div className="map-overlay">
-            <div className="map-searchbox">
+            <div className="map-searchbox z-100">
               <SearchBarComponent onAddressSelect={setMapCenter} />
             </div>
-            <div className="map-info-box trend-info">Disease Trend Here</div>
-            <div className="map-info-box diagnosis-info">
+            <div className="map-info-box trend-info z-50">
+              Disease Trend Here
+            </div>
+            <div className="map-info-box diagnosis-info z-50">
               Diagnosis Count Here
             </div>
           </div>
