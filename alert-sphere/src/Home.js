@@ -7,6 +7,7 @@ import SideBarComponent from "./components/SideBarComponent";
 import TopBarComponent from "./components/TopBarComponent";
 import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
+import AdminComponent from "./components/AdminComponent";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -17,6 +18,9 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
   const [markerPosition, setMarkerPosition] = useState(null);
   const [zoom, setZoom] = useState(10); // 初始缩放级别为10
+
+  // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
+  const isAdmin = true;
 
   function handleLogout() {
     // Send a POST request to the server to logout
@@ -50,6 +54,7 @@ function Home() {
           const userLocation = { lat, lng };
           setMapCenter(userLocation);
           setMarkerPosition(userLocation);
+          // setZoom(12);
         },
         (error) => {
           console.error("Error obtaining geolocation:", error);
@@ -137,7 +142,7 @@ function Home() {
         </div>
 
         <div className="chat-bot z-50">
-          <ChatbotComponent />
+          {isAdmin ? <AdminComponent /> : <ChatbotComponent />}
         </div>
       </main>
     </div>
