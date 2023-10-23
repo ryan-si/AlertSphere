@@ -9,7 +9,7 @@ import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
 import AdminComponent from "./components/AdminComponent";
 import useHospitals from "./hooks/useHospitals";
-//import useCases from "./hooks/useCases";
+
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -18,9 +18,8 @@ function Home() {
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
-  const [markerPosition, setMarkerPosition] = useState(null);
+  //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
-  //const cases = useCases();
 
   const diseases = [
     { name: "COVID-19", count: 5000, trend: "up" },
@@ -104,7 +103,7 @@ function Home() {
         <div className="map">
           <MapComponent
             center={mapCenter}
-            markerPosition={markerPosition}
+            markerPosition={mapCenter}
             hospitals={hospitals}
           
           />
@@ -113,7 +112,6 @@ function Home() {
               <SearchBarComponent
                 onAddressSelect={(latLng) => {
                   setMapCenter(latLng);
-                  setMarkerPosition(latLng);
                  
                 }}
               />

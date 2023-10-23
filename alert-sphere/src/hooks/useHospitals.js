@@ -11,9 +11,7 @@ function useHospitals() {
                 if (data.result && Array.isArray(data.result)) {
                     const filteredData = data.result.filter(item => item.reporting_unit_type.reporting_unit_type_code === "H");
                     setHospitals(filteredData);
-                } else {
-                    console.error("Expected an array in data.result but received:", data);
-                }
+                } 
             })
             .catch(error => {
                 console.error("Error fetching hospital data:", error);

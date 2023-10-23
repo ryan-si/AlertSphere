@@ -1,25 +1,32 @@
-import React, { useRef } from "react";
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import React, { useRef, useState } from "react";
+import { GoogleMap, Marker } from '@react-google-maps/api';
+//import useCases from "../hooks/useCases";
 
 /* global google */
-function MapComponent({ center, markerPosition, hospitals }) {
+function MapComponent({ center, hospitals }) {
 
+  //const cases = useCases();
   const mapRef = useRef(null);
-  const mapStyles = [
-    {
-      featureType: "poi",
-      elementType: "labels",
-      stylers: [{ visibility: "off" }]
+
+  const [bounds, setBounds] = useState(null);
+  const handleBoundsChanged = () => {
+    if (mapRef.current) {
+      const newBounds = mapRef.current.getBounds();
+
+      if (!bounds || !newBounds.equals(bounds)) {  // Check if bounds really changed
+        setBounds(newBounds);
+      }
     }
-  ];
+  };
+
   return (
     <GoogleMap
-      defaultOptions={{ styles: mapStyles }}
       ref={map => {
         if (map) {
           mapRef.current = map.state.map;
         }
       }}
+      onBoundsChanged={handleBoundsChanged}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       center={center}
       zoom={12}
@@ -60,18 +67,40 @@ function MapComponent({ center, markerPosition, hospitals }) {
         return null;
       })}
 
-      {markerPosition && (
+      {
         <Marker
-          position={markerPosition}
+          position={center}
           icon={{
             path: google.maps.SymbolPath.CIRCLE,
-            fillColor: 'green',
+            fillColor: 'blue',
             fillOpacity: 1,
             strokeWeight: 0,
             scale: 5
           }}
         />
-      )}
+      }
+      {/*cases.map(caseItem => (
+        <Marker
+          key={caseItem.case_id}
+          position={{ lat: caseItem.latitude, lng: caseItem.longitude }}
+          icon={{
+            path: window.google.maps.SymbolPath.CIRCLE,
+            fillColor: 'red',
+            fillOpacity: 1,
+            strokeWeight: 0,
+            scale: 5
+          }}
+          onClick={() => {
+            // Fetch disease_name from the backend and display it
+            fetch(`http://10.19.229.4:8080/emergency/disease/${caseItem.disease_id}`)
+              .then(response => response.json())
+              .then(data => {
+                // Display disease_name
+                alert(`Case ID: ${caseItem.case_id}, Disease: ${data.data.disease_name}`);
+              });
+          }}
+        />
+        ))*/}
     </GoogleMap>
   );
 }
