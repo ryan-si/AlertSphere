@@ -30,7 +30,7 @@ function AdminComponent() {
       {isOpen && (
         <>
           <button
-            className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full p-1"
+            className="absolute top-2 right-2 w-8 h-8 text-gray-500 rounded-full p-1"
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(false);

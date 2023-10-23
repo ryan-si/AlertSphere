@@ -135,7 +135,23 @@ function Home() {
               Disease Trend Here
             </div>
             <div className="map-info-box diagnosis-info z-50">
-              Diagnosis Count Here
+              Clinics
+              <div className="relative w-32 h-32 bg-white rounded-full p-3">
+                {/* 外圆环 */}
+                <div
+                  className="absolute top-0 left-0 w-full h-full border-t-4 border-blue-500 rounded-full"
+                  style={{ transform: "rotate(-90deg)" }}
+                ></div>
+                {/* 内圆环 */}
+                <div
+                  className="absolute top-1 left-1 w-30 h-30 border-t-4 border-green-500 rounded-full"
+                  style={{ transform: "rotate(60deg)" }}
+                ></div>
+                {/* 数字显示 */}
+                <div className="relative flex items-center justify-center h-full">
+                  <span className="text-xl font-bold">9</span>
+                </div>
+              </div>
             </div>
           </div>
           {/* <AskMeComponent /> */}
