@@ -8,6 +8,8 @@ import TopBarComponent from "./components/TopBarComponent";
 import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
 import AdminComponent from "./components/AdminComponent";
+import useHospitals from "./hooks/useHospitals";
+//import useCases from "./hooks/useCases";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -15,9 +17,10 @@ function Home() {
   const [apiResponse, setApiResponse] = React.useState("");
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
-  const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
+  const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   const [markerPosition, setMarkerPosition] = useState(null);
-  const [zoom, setZoom] = useState(10);
+  const hospitals = useHospitals();
+  //const cases = useCases();
 
   const diseases = [
     { name: "COVID-19", count: 5000, trend: "up" },
@@ -29,7 +32,7 @@ function Home() {
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
   const isAdmin = true;
 
-  useEffect(() => {
+  {/*useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -46,7 +49,7 @@ function Home() {
     } else {
       console.error("Geolocation not supported by this browser");
     }
-  }, []);
+  }, []);*/}
 
   return (
     <div className="home-page">
@@ -102,7 +105,8 @@ function Home() {
           <MapComponent
             center={mapCenter}
             markerPosition={markerPosition}
-            zoom={zoom}
+            hospitals={hospitals}
+          
           />
           <div className="map-overlay">
             <div className="map-searchbox z-100">
@@ -110,7 +114,7 @@ function Home() {
                 onAddressSelect={(latLng) => {
                   setMapCenter(latLng);
                   setMarkerPosition(latLng);
-                  setZoom(15);
+                 
                 }}
               />
             </div>
@@ -159,7 +163,7 @@ function Home() {
         </div>
 
         <div className="chat-bot z-50">
-          {isAdmin ? <AdminComponent /> : <ChatbotComponent />}
+          {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
         </div>
       </main>
     </div>

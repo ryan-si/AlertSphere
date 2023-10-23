@@ -10,7 +10,7 @@ function AdminComponent() {
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
-  const [caseType, setCaseType] = useState(""); // 新增状态来跟踪caseType的选择
+  const [caseType, setCaseType] = useState(""); 
 
   const handleCaseTypeChange = (e) => {
     setCaseType(e.target.value);
