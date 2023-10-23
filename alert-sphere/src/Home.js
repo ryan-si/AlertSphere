@@ -17,8 +17,7 @@ function Home() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
   const [markerPosition, setMarkerPosition] = useState(null);
-  const [zoom, setZoom] = useState(10); 
-
+  const [zoom, setZoom] = useState(10);
 
   const diseases = [
     { name: "COVID-19", count: 5000, trend: "up" },
@@ -29,30 +28,6 @@ function Home() {
 
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
   const isAdmin = true;
-
-  function handleLogout() {
-    // Send a POST request to the server to logout
-    fetch("http://10.19.229.4:8080/emergency/user/logout", {
-      method: "POST",
-      headers: {
-        // Set headers if needed, e.g., for authentication
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response data if needed
-        console.log(data);
-        // Remove the token from sessionStorage after successful logout
-        sessionStorage.removeItem("token");
-        // Optionally, redirect user to login page
-        window.location.href = "/login";
-      })
-      .catch((error) => {
-        console.error("Error logging out:", error);
-      });
-  }
 
   useEffect(() => {
     if (navigator.geolocation) {
