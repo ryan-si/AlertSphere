@@ -10,11 +10,12 @@ import Favorites from "./Favorites";
 import NewsPage from "./NewsPage";
 import Settings from "./Settings";
 import SettingDetail from "./SettingDetail";
-import { LoadScript } from '@react-google-maps/api';
+import { LoadScript } from "@react-google-maps/api";
+import HelpPage from "./HelpPage";
 
 function App() {
   return (
-    <LoadScript 
+    <LoadScript
       googleMapsApiKey="AIzaSyCxBkbx6cQ88YShFQTJLXBlhTu3mcupSv0"
       libraries={["places"]}
     >
@@ -30,6 +31,7 @@ function App() {
           <Route path="/warnings" element={<Warnings />} />
           <Route path="/healthTips" element={<HealthTips />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/help" element={<HelpPage />} />
         </Routes>
         <div className="App"></div>
       </BrowserRouter>
