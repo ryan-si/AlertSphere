@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import "./Register.css";
-import useRegister from './hooks/useRegister';
+import useRegister from "./hooks/useRegister";
 export default function Register() {
-
-
-  const { email, setEmail, password, setPassword,name,setName, mobile, setMobile, msg, register, address, setAddress } = useRegister();
-
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    name,
+    setName,
+    mobile,
+    setMobile,
+    msg,
+    register,
+    address,
+    setAddress,
+  } = useRegister();
 
   return (
-    <div className="flex min-h-screen flex-1 justify-center px-6 py-12 lg:px-8 bg-gray-200">
-      <div className="h-full bg-white rounded-lg shadow w-3/5">
+    <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8 bg-gray-200">
+      <div className="w-full sm:max-w-md bg-white rounded-lg shadow">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Register a New Account
@@ -17,7 +27,12 @@ export default function Register() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST" onSubmit={(event) => register(event)}>
+          <form
+            className="space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={(event) => register(event)}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -135,8 +150,6 @@ export default function Register() {
                 />
               </div>
             </div>
-
-
 
             <div className="mb-6">
               <button

@@ -7,8 +7,8 @@ export default function Login() {
   const { email, setEmail, password, setPassword, msg, login } = useLogin();
 
   return (
-    <div className="flex min-h-screen flex-1 flex-auto justify-center px-6 py-12 lg:px-8 bg-gray-200">
-      <div className="w-3/5 h-min bg-white rounded-lg shadow">
+    <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8 bg-gray-200">
+      <div className="w-full sm:max-w-md bg-white rounded-lg shadow">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
