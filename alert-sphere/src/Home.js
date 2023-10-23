@@ -17,7 +17,8 @@ function Home() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
   const [markerPosition, setMarkerPosition] = useState(null);
-  const [zoom, setZoom] = useState(10); // 初始缩放级别为10
+  const [zoom, setZoom] = useState(10); 
+
 
   const diseases = [
     { name: "COVID-19", count: 5000, trend: "up" },
@@ -101,7 +102,7 @@ function Home() {
         </div>
       </aside> */}
       <main className="content">
-        <TopBarComponent></TopBarComponent>
+        <TopBarComponent />
         {/* <div className="login-status">
           {token ? (
             <div className="user-info">
