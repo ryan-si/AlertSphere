@@ -20,6 +20,7 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
+  const [hospitalsCount, setHospitalsCount] = useState(14);
 
   const diseases = [
     { name: "COVID-19", count: 5000, trend: "up" },
@@ -52,67 +53,22 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* {<div>if(token){console.log("logged")} else {console.log("not log")}
-        </div>} */}
       <SideBarComponent />
-      {/* <aside className="sidebar">
-        <div className="company-section">
-          <img
-            src="company-logo.png"
-            alt="Company Logo"
-            className="company-logo"
-          />
-          <span>Company Name</span>
-        </div>
-        <ul className="menu-list">
-          <li>Warnings</li>
-          <li>Health tips</li>
-          <li>Collection</li>
-          <li>Setting</li>
-        </ul>
-        <div className="footer-links">
-          <a href="#">Help Centre</a>
-          <a href="#">Contact us</a>
-          <a href="#" onClick={handleLogout}>
-            Log out
-          </a>
-        </div>
-      </aside> */}
+      
       <main className="content">
         <TopBarComponent />
-        {/* <div className="login-status">
-          {token ? (
-            <div className="user-info">
-              <img
-                src="user-avatar.png"
-                alt="User Avatar"
-                className="user-avatar"
-              />
-              <span>{email}</span>
-            </div>
-          ) : (
-            <div className="login-register-prompt">
-              <span>
-                Please <a href="/login">Login</a>/
-                <a href="/register">Register</a>
-              </span>
-            </div>
-          )}
-        </div> */}
 
         <div className="map">
           <MapComponent
             center={mapCenter}
-            markerPosition={mapCenter}
             hospitals={hospitals}
-          
+            onHospitalChange={count => setHospitalsCount(count)}
           />
           <div className="map-overlay">
             <div className="map-searchbox z-100">
               <SearchBarComponent
                 onAddressSelect={(latLng) => {
-                  setMapCenter(latLng);
-                 
+                  setMapCenter(latLng)
                 }}
               />
             </div>
@@ -153,7 +109,7 @@ function Home() {
             <div className="map-info-box diagnosis-info z-50 flex flex-col items-center">
               <div className="mb-2">Clinics</div>
               <div className="flex justify-center items-center w-16 h-16 border-4 border-blue-500 rounded-full p-2">
-                <span className="text-2xl font-bold">9</span>
+                <span className="text-2xl font-bold">{hospitalsCount}</span>
               </div>
             </div>
           </div>
@@ -162,6 +118,8 @@ function Home() {
 
         <div className="chat-bot z-50">
           {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
+          <AdminComponent />
+
         </div>
       </main>
     </div>

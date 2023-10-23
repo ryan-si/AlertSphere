@@ -2,8 +2,7 @@ import React, { useRef, useState } from "react";
 import { GoogleMap, Marker } from '@react-google-maps/api';
 //import useCases from "../hooks/useCases";
 
-/* global google */
-function MapComponent({ center, hospitals }) {
+function MapComponent({ center, hospitals,onHospitalChange }) {
 
   //const cases = useCases();
   const mapRef = useRef(null);
@@ -12,9 +11,19 @@ function MapComponent({ center, hospitals }) {
   const handleBoundsChanged = () => {
     if (mapRef.current) {
       const newBounds = mapRef.current.getBounds();
-
-      if (!bounds || !newBounds.equals(bounds)) {  // Check if bounds really changed
+      if (!bounds || !newBounds.equals(bounds)) {
         setBounds(newBounds);
+
+        const hospitalsCount = hospitals.filter(hospital => {
+          const isValidCoordinate = typeof hospital.latitude === 'number' && typeof hospital.longitude === 'number';
+          if (isValidCoordinate) {
+            const hospitalPosition = new window.google.maps.LatLng(hospital.latitude, hospital.longitude);
+            return newBounds.contains(hospitalPosition);
+          }
+          return false;
+        }).length;
+
+        onHospitalChange(hospitalsCount);  // Pass the count to the parent component
       }
     }
   };
@@ -29,7 +38,7 @@ function MapComponent({ center, hospitals }) {
       onBoundsChanged={handleBoundsChanged}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       center={center}
-      zoom={12}
+      zoom={15}
       options={{
         streetViewControl: false,
         mapTypeControl: false,
@@ -40,44 +49,14 @@ function MapComponent({ center, hospitals }) {
         },
       }}
     >
-      {hospitals.map(hospital => {
-        const isValidCoordinate = typeof hospital.latitude === 'number' && typeof hospital.longitude === 'number';
-
-        if (isValidCoordinate && mapRef.current) {
-          const bounds = mapRef.current.getBounds();
-          const hospitalPosition = new window.google.maps.LatLng(hospital.latitude, hospital.longitude);
-
-          if (bounds && bounds.contains(hospitalPosition)) {
-            return (
-              <Marker
-                key={hospital.reporting_unit_name}
-                position={{ lat: hospital.latitude, lng: hospital.longitude }}
-                icon={{
-                  path: window.google.maps.SymbolPath.CIRCLE,
-                  fillColor: 'green',
-                  fillOpacity: 1,
-                  strokeWeight: 0,
-                  scale: 10
-                }}
-                onClick={() => alert(hospital.reporting_unit_name)}
-              />
-            );
-          }
-        }
-        return null;
-      })}
-
       {
         <Marker
           position={center}
           icon={{
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: 'blue',
-            fillOpacity: 1,
-            strokeWeight: 0,
-            scale: 5
+            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
           }}
         />
+
       }
       {/*cases.map(caseItem => (
         <Marker
@@ -101,6 +80,32 @@ function MapComponent({ center, hospitals }) {
           }}
         />
         ))*/}
+      {hospitals.map(hospital => {
+        const isValidCoordinate = typeof hospital.latitude === 'number' && typeof hospital.longitude === 'number';
+
+        if (isValidCoordinate && mapRef.current) {
+          const bounds = mapRef.current.getBounds();
+          const hospitalPosition = new window.google.maps.LatLng(hospital.latitude, hospital.longitude);
+
+          if (bounds && bounds.contains(hospitalPosition)) {
+            return (
+              <Marker
+                key={hospital.reporting_unit_name}
+                position={{ lat: hospital.latitude, lng: hospital.longitude }}
+                icon={{
+                  url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                }}
+                onClick={() => alert(hospital.reporting_unit_name)}
+              />
+            );
+          }
+        }
+        return null;
+      })}
+
+
+
+
     </GoogleMap>
   );
 }
