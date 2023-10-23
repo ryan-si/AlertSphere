@@ -1,12 +1,13 @@
 import React from "react";
 import "./Home.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MapComponent from "./components/MapComponent";
 import ChatbotComponent from "./components/ChatbotComponent";
 import SideBarComponent from "./components/SideBarComponent";
 import TopBarComponent from "./components/TopBarComponent";
 import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
+import AdminComponent from "./components/AdminComponent";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -17,6 +18,53 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: 41.3851, lng: 2.1734 });
   const [markerPosition, setMarkerPosition] = useState(null);
   const [zoom, setZoom] = useState(10); 
+
+
+  // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
+  const isAdmin = true;
+
+  function handleLogout() {
+    // Send a POST request to the server to logout
+    fetch("http://10.19.229.4:8080/emergency/user/logout", {
+      method: "POST",
+      headers: {
+        // Set headers if needed, e.g., for authentication
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data if needed
+        console.log(data);
+        // Remove the token from sessionStorage after successful logout
+        sessionStorage.removeItem("token");
+        // Optionally, redirect user to login page
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  }
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude: lat, longitude: lng } = position.coords;
+          const userLocation = { lat, lng };
+          setMapCenter(userLocation);
+          setMarkerPosition(userLocation);
+          // setZoom(12);
+        },
+        (error) => {
+          console.error("Error obtaining geolocation:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation not supported by this browser");
+    }
+  }, []);
 
   return (
     <div className="home-page">
@@ -88,14 +136,30 @@ function Home() {
               Disease Trend Here
             </div>
             <div className="map-info-box diagnosis-info z-50">
-              Diagnosis Count Here
+              Clinics
+              <div className="relative w-32 h-32 bg-white rounded-full p-3">
+                {/* 外圆环 */}
+                <div
+                  className="absolute top-0 left-0 w-full h-full border-t-4 border-blue-500 rounded-full"
+                  style={{ transform: "rotate(-90deg)" }}
+                ></div>
+                {/* 内圆环 */}
+                <div
+                  className="absolute top-1 left-1 w-30 h-30 border-t-4 border-green-500 rounded-full"
+                  style={{ transform: "rotate(60deg)" }}
+                ></div>
+                {/* 数字显示 */}
+                <div className="relative flex items-center justify-center h-full">
+                  <span className="text-xl font-bold">9</span>
+                </div>
+              </div>
             </div>
           </div>
           {/* <AskMeComponent /> */}
         </div>
 
         <div className="chat-bot z-50">
-          <ChatbotComponent />
+          {isAdmin ? <AdminComponent /> : <ChatbotComponent />}
         </div>
       </main>
     </div>
