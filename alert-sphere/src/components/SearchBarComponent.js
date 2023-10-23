@@ -24,11 +24,16 @@ const SearchBarComponent = ({ onAddressSelect }) => {
       searchOptions={searchOptions}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div>
+        <div className="relative">
           <input
             {...getInputProps({ placeholder: "Search address..." })}
-            className="-ml-2.5 w-full border border-gray-300 pl-2 rounded border-none focus:outline-none"
+            className="bg-blue bg-opacity-80 -ml-2.5 w-full border pl-2 rounded border-none focus:outline-none "
           />
+          <img
+            src="Magnifier.png"
+            alt="Search"
+            className="h-5 w-4.5 absolute top-0.5 right-2"
+          />{" "}
           <div className="">
             {loading && (
               <div className="-ml-2.5 bg-white border border-gray-300 p-2 cursor-pointer rounded hover:bg-blue-500">

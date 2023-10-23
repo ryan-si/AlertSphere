@@ -19,6 +19,13 @@ function Home() {
   const [markerPosition, setMarkerPosition] = useState(null);
   const [zoom, setZoom] = useState(10); // 初始缩放级别为10
 
+  const diseases = [
+    { name: "COVID-19", count: 5000, trend: "up" },
+    { name: "Flu", count: 3000, trend: "down" },
+    { name: "Chickenpox", count: 1500, trend: "stable" },
+    { name: "Measles", count: 1000, trend: "up" },
+  ];
+
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
   const isAdmin = true;
 
@@ -131,26 +138,44 @@ function Home() {
                 }}
               />
             </div>
-            <div className="map-info-box trend-info z-50">
-              Disease Trend Here
-            </div>
-            <div className="map-info-box diagnosis-info z-50">
-              Clinics
-              <div className="relative w-32 h-32 bg-white rounded-full p-3">
-                {/* 外圆环 */}
-                <div
-                  className="absolute top-0 left-0 w-full h-full border-t-4 border-blue-500 rounded-full"
-                  style={{ transform: "rotate(-90deg)" }}
-                ></div>
-                {/* 内圆环 */}
-                <div
-                  className="absolute top-1 left-1 w-30 h-30 border-t-4 border-green-500 rounded-full"
-                  style={{ transform: "rotate(60deg)" }}
-                ></div>
-                {/* 数字显示 */}
-                <div className="relative flex items-center justify-center h-full">
-                  <span className="text-xl font-bold">9</span>
+            <div className="map-info-box diagnosis-info z-50 flex flex-col items-center">
+              <div className="mb-2">Trend</div>
+              {/* <div className="flex justify-center items-center w-16 h-16 border-4 border-blue-500 rounded-full p-2">
+                <span className="text-2xl font-bold">9</span>
+              </div> */}
+              {diseases.map((disease) => (
+                <div key={disease.name} className="flex items-center my-1">
+                  <span className="mr-2">
+                    {disease.name}: {disease.count}
+                  </span>
+                  {disease.trend === "up" && (
+                    <img
+                      src="arrow-up.png"
+                      alt="Up trend"
+                      className="w-5 h-5"
+                    />
+                  )}
+                  {disease.trend === "down" && (
+                    <img
+                      src="arrow-down.png"
+                      alt="Down trend"
+                      className="w-5 h-5"
+                    />
+                  )}
+                  {disease.trend === "stable" && (
+                    <img
+                      src="stable.png"
+                      alt="Stable trend"
+                      className="w-5 h-5"
+                    />
+                  )}
                 </div>
+              ))}
+            </div>
+            <div className="map-info-box diagnosis-info z-50 flex flex-col items-center">
+              <div className="mb-2">Clinics</div>
+              <div className="flex justify-center items-center w-16 h-16 border-4 border-blue-500 rounded-full p-2">
+                <span className="text-2xl font-bold">9</span>
               </div>
             </div>
           </div>

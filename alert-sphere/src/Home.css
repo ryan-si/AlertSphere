@@ -103,7 +103,7 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 8px;
-  background: #fff;
+  background: rgba(255, 255, 255);
   margin-bottom: 10px; /* 如果你希望元素之间有一些间距 */
   z-index: 100;
 }
@@ -121,7 +121,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
   margin-bottom: 10px; /* 如果你希望元素之间有一些间距 */
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 
 .trend-info {
