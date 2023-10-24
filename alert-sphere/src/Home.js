@@ -10,7 +10,7 @@ import AskMeComponent from "./components/AskMeComponent";
 import AdminComponent from "./components/AdminComponent";
 import useHospitals from "./hooks/useHospitals";
 import { getColorForDisease } from "./utils/colorUtils";
-//import useCases from "./hooks/useCases";
+import useCases from "./hooks/useCases";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -21,7 +21,7 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
-  //const cases = useCases();
+  const cases = useCases();
   const [hospitalsCount, setHospitalsCount] = useState(0);
   const [caseData, setCaseData] = useState({});
 
@@ -29,9 +29,9 @@ function Home() {
     document.title = "AlertSphere";
   }, []);
 
-  // const handleCaseChange = (data) => {
-  //   setCaseData(data);
-  // };
+  const handleCaseChange = (data) => {
+    setCaseData(data);
+  };
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
   const isAdmin = true;
   return (
@@ -46,6 +46,8 @@ function Home() {
             center={mapCenter}
             hospitals={hospitals}
             onHospitalChange={(count) => setHospitalsCount(count)}
+            cases={cases}
+            onCaseChange={(data) => handleCaseChange(data)}
           />
           <div className="map-overlay">
             <div className="map-searchbox z-100">
@@ -57,13 +59,16 @@ function Home() {
             </div>
             <div className="map-info-box diagnosis-info z-50 flex flex-col items-center">
               <div className="mb-2">Cases</div>
-              {/* {Object.entries(caseData).map(([diseaseName, count]) => (
+              {Object.entries(caseData).map(([diseaseName, count]) => (
                 <div key={diseaseName} className="flex items-center my-1">
-                  <span className="mr-2" style={{ color: getColorForDisease(diseaseName) }}>
+                  <span
+                    className="mr-2"
+                    style={{ color: getColorForDisease(diseaseName) }}
+                  >
                     {diseaseName}: {count}
                   </span>
                 </div>
-              ))} */}
+              ))}
             </div>
             <div className="map-info-box diagnosis-info z-50 flex flex-col items-center">
               <div className="mb-2">Hospitals</div>
@@ -78,7 +83,7 @@ function Home() {
         <div className="chat-bot z-50">
           {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
           {/* <ChatbotComponent /> */}
-          <AdminComponent />
+          {/* <AdminComponent /> */}
         </div>
       </main>
     </div>

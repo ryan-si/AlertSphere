@@ -3,14 +3,19 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 import { getColorForDisease } from "../utils/colorUtils";
 //import CenterMarkerComponent from './CenterMarkerComponent';
 import HospitalMarkerComponent from "./HospitalMarkerComponent";
-//import CaseMarkers from './CaseMarkers';
-function MapComponent({ center, hospitals, onHospitalChange }) {
+import CaseMarkerComponent from "./CaseMarkerComponent";
+function MapComponent({
+  center,
+  hospitals,
+  onHospitalChange,
+  onCaseChange,
+  cases,
+}) {
   /*global google*/
   //const cases = useCases();
   const mapRef = useRef(null);
 
   useEffect(() => {
-    // 确保地图已加载并且引用已被设置
     if (mapRef.current) {
       handleBoundsChanged();
     }
@@ -37,21 +42,26 @@ function MapComponent({ center, hospitals, onHospitalChange }) {
           return false;
         }).length;
         onHospitalChange(hospitalsCount);
-        // const casesWithinBounds = cases.filter(caseItem => {
-        //   const isValidCoordinate = typeof caseItem.latitude === 'number' && typeof caseItem.longitude === 'number';
-        //   if (isValidCoordinate) {
-        //     const casePosition = new window.google.maps.LatLng(caseItem.latitude, caseItem.longitude);
-        //     return newBounds.contains(casePosition);
-        //   }
-        //   return false;
-        // });
+        const casesWithinBounds = cases.filter((caseItem) => {
+          const isValidCoordinate =
+            typeof caseItem.latitude === "number" &&
+            typeof caseItem.longitude === "number";
+          if (isValidCoordinate) {
+            const casePosition = new window.google.maps.LatLng(
+              caseItem.latitude,
+              caseItem.longitude
+            );
+            return newBounds.contains(casePosition);
+          }
+          return false;
+        });
 
-        // // Group by disease name and count
-        // const casesCount = casesWithinBounds.reduce((acc, caseItem) => {
-        //   acc[caseItem.disease_name] = (acc[caseItem.disease_name] || 0) + 1;
-        //   return acc;
-        // }, {});
-        // onCaseChange(casesCount);
+        // Group by disease name and count
+        const casesCount = casesWithinBounds.reduce((acc, caseItem) => {
+          acc[caseItem.disease_name] = (acc[caseItem.disease_name] || 0) + 1;
+          return acc;
+        }, {});
+        onCaseChange(casesCount);
       }
     }
   };
@@ -86,6 +96,7 @@ function MapComponent({ center, hospitals, onHospitalChange }) {
         />
       }
       <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} />
+      <CaseMarkerComponent cases={cases} bounds={bounds} />
     </GoogleMap>
   );
 }
