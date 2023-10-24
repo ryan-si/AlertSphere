@@ -12,6 +12,7 @@ import Settings from "./Settings";
 import SettingDetail from "./SettingDetail";
 import { LoadScript } from "@react-google-maps/api";
 import HelpPage from "./HelpPage";
+import ContactUs from "./ContactUs";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/healthTips" element={<HealthTips />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
         <div className="App"></div>
       </BrowserRouter>

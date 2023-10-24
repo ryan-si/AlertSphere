@@ -58,7 +58,7 @@ function SideBarComponent() {
       </ul>
       <div className="footer-links">
         <a href="/help">Help Centre</a>
-        <a href="#">Contact us</a>
+        <a href="/contact">Contact us</a>
         <a href="#" onClick={handleLogout}>
           Log out
         </a>
