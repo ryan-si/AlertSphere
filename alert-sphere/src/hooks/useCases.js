@@ -5,7 +5,7 @@ function useCases() {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         // Fetch all cases
-        fetch("http://192.168.50.237:8080/emergency/cases", {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/cases`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -16,7 +16,7 @@ function useCases() {
             .then(data => {
                 // For each case, fetch the disease name
                 const promises = data.map(caseItem => {
-                    return fetch(`http://192.168.50.237:8080/emergency/disease/${caseItem.disease_id}`, {
+                    return fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/disease/${caseItem.disease_id}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'

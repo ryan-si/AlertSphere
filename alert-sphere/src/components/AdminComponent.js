@@ -43,7 +43,7 @@ function AdminComponent() {
     const token = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch('http://192.168.50.237:8080/emergency/diseases', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/diseases`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
