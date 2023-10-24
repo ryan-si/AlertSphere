@@ -83,7 +83,7 @@ function Home() {
         <div className="chat-bot z-50">
           {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
           {/* <ChatbotComponent /> */}
-          {/* <AdminComponent /> */}
+          <AdminComponent />
         </div>
       </main>
     </div>

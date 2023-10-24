@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "./ChatbotComponent.css";
-import useDiseases from '../hooks/useDiseases';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import useDiseases from "../hooks/useDiseases";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 function AdminComponent() {
   const { diseases, submitDiseaseData } = useDiseases();
+  console.log("diseases", diseases);
   const [responses, setResponses] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -13,9 +17,8 @@ function AdminComponent() {
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
   const [selectedDiseaseID, setSelectedDiseaseID] = useState(null);
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   const [caseType, setCaseType] = useState("");
-
 
   const [coordinates, setCoordinates] = useState(null);
 
@@ -30,49 +33,24 @@ function AdminComponent() {
       const latLng = await getLatLng(results[0]);
       setCoordinates(latLng);
     } catch (error) {
-      console.error('Error fetching coordinates for address:', error);
+      console.error("Error fetching coordinates for address:", error);
     }
   };
 
   const handleSubmit = async () => {
     if (!selectedDiseaseID || !coordinates) {
-      alert('Please select a disease type and location first.');
+      alert("Please select a disease type and location first.");
       return;
     }
 
     const token = sessionStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/diseases`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          disease_id: selectedDiseaseID,
-          latitude: coordinates.lat,
-          longitude: coordinates.lng
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit case data');
-      }
-
-      const data = await response.json();
-      console.log('Submitted data:', data);
-      alert('Reported successfully!');
-    } catch (error) {
-      console.error('Error reporting the data:', error);
-      alert('Failed to report data. Please try again.');
-    }
   };
 
   return (
     <div
-      className={`chatbot-container rounded-md flex flex-col ${isOpen ? "w-4-5 h-1/2" : "h-auto"
-        }`}
+      className={`chatbot-container rounded-md flex flex-col ${
+        isOpen ? "w-4-5 h-1/2" : "h-auto"
+      }`}
       onClick={() => setIsOpen(true)}
     >
       {isOpen && (
@@ -105,9 +83,14 @@ function AdminComponent() {
                     value={selectedDiseaseID}
                     onChange={handleDiseaseSelect}
                   >
-                    <option value="" disabled>Select a disease</option>
-                    {diseases.map(disease => (
-                      <option key={disease.disease_id} value={disease.disease_id}>
+                    <option value="" disabled>
+                      Select a disease
+                    </option>
+                    {diseases.data.diseases.map((disease) => (
+                      <option
+                        key={disease.disease_id}
+                        value={disease.disease_id}
+                      >
                         {disease.disease_name}
                       </option>
                     ))}
@@ -126,19 +109,24 @@ function AdminComponent() {
                     onChange={setLocation}
                     onSelect={handleSelect}
                   >
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading,
+                    }) => (
                       <div className="relative">
                         <input
                           {...getInputProps({
-                            id: 'location',
-                            className: 'block w-full p-2 border rounded',
-                            placeholder: 'Type the location'
+                            id: "location",
+                            className: "block w-full p-2 border rounded",
+                            placeholder: "Type the location",
                           })}
                         />
                         {suggestions.length > 0 && (
                           <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md">
                             {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
+                            {suggestions.map((suggestion) => {
                               const className = suggestion.active
                                 ? "p-4 cursor-pointer bg-gray-100"
                                 : "p-4 cursor-pointer";
