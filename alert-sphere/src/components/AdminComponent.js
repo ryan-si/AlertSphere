@@ -7,7 +7,6 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 function AdminComponent() {
   const { diseases, submitDiseaseData } = useDiseases();
-  console.log("diseases", diseases);
   const [responses, setResponses] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);

@@ -17,7 +17,7 @@ function SideBarComponent() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // Remove the token from sessionStorage after successful logout
         sessionStorage.removeItem("token");
         // Optionally, redirect user to login page

@@ -10,7 +10,7 @@ function SettingDetail() {
   const title = location.state?.title || "Default Title";
   const content = location.state?.content || "Default Content";
 
-  console.log(location.state?.title);
+  // console.log(location.state?.title);
 
   return (
     <div className="h-screen flex flex-col">

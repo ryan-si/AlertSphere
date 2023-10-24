@@ -42,7 +42,10 @@ function MapComponent({
           return false;
         }).length;
         onHospitalChange(hospitalsCount);
+        // console.log(cases);
         const casesWithinBounds = cases.filter((caseItem) => {
+          caseItem.latitude = parseFloat(caseItem.latitude);
+          caseItem.longitude = parseFloat(caseItem.longitude);
           const isValidCoordinate =
             typeof caseItem.latitude === "number" &&
             typeof caseItem.longitude === "number";
