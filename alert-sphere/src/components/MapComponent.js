@@ -1,13 +1,20 @@
-import React, { useRef, useState } from "react";
-import { GoogleMap, Marker } from '@react-google-maps/api';
-import { getColorForDisease } from '../utils/colorUtils';
+import React, { useRef, useState, useEffect } from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { getColorForDisease } from "../utils/colorUtils";
 //import CenterMarkerComponent from './CenterMarkerComponent';
-import HospitalMarkerComponent from './HospitalMarkerComponent';
+import HospitalMarkerComponent from "./HospitalMarkerComponent";
 //import CaseMarkers from './CaseMarkers';
-function MapComponent({ center, hospitals, onHospitalChange, }) {
-/*global google*/
+function MapComponent({ center, hospitals, onHospitalChange }) {
+  /*global google*/
   //const cases = useCases();
   const mapRef = useRef(null);
+
+  useEffect(() => {
+    // 确保地图已加载并且引用已被设置
+    if (mapRef.current) {
+      handleBoundsChanged();
+    }
+  }, [mapRef.current]);
 
   const [bounds, setBounds] = useState(null);
   const handleBoundsChanged = () => {
@@ -16,10 +23,15 @@ function MapComponent({ center, hospitals, onHospitalChange, }) {
       if (!bounds || !newBounds.equals(bounds)) {
         setBounds(newBounds);
 
-        const hospitalsCount = hospitals.filter(hospital => {
-          const isValidCoordinate = typeof hospital.latitude === 'number' && typeof hospital.longitude === 'number';
+        const hospitalsCount = hospitals.filter((hospital) => {
+          const isValidCoordinate =
+            typeof hospital.latitude === "number" &&
+            typeof hospital.longitude === "number";
           if (isValidCoordinate) {
-            const hospitalPosition = new window.google.maps.LatLng(hospital.latitude, hospital.longitude);
+            const hospitalPosition = new window.google.maps.LatLng(
+              hospital.latitude,
+              hospital.longitude
+            );
             return newBounds.contains(hospitalPosition);
           }
           return false;
@@ -46,7 +58,7 @@ function MapComponent({ center, hospitals, onHospitalChange, }) {
 
   return (
     <GoogleMap
-      ref={map => {
+      ref={(map) => {
         if (map) {
           mapRef.current = map.state.map;
         }
@@ -65,17 +77,15 @@ function MapComponent({ center, hospitals, onHospitalChange, }) {
         },
       }}
     >
-      {<Marker
-        position={center}
-        icon={{
-          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        }}
-      />}
-      <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} /> 
-
-
-
-
+      {
+        <Marker
+          position={center}
+          icon={{
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+          }}
+        />
+      }
+      <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} />
     </GoogleMap>
   );
 }

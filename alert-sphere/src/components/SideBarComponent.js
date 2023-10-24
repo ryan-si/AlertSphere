@@ -49,9 +49,9 @@ function SideBarComponent() {
         <li>
           <Link to="/healthTips">Health tips</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/favorites">Collection</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/settings">Settings</Link>
         </li>

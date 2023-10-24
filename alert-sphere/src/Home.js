@@ -9,7 +9,7 @@ import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
 import AdminComponent from "./components/AdminComponent";
 import useHospitals from "./hooks/useHospitals";
-import { getColorForDisease } from './utils/colorUtils';
+import { getColorForDisease } from "./utils/colorUtils";
 //import useCases from "./hooks/useCases";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
@@ -24,6 +24,10 @@ function Home() {
   //const cases = useCases();
   const [hospitalsCount, setHospitalsCount] = useState(0);
   const [caseData, setCaseData] = useState({});
+
+  useEffect(() => {
+    document.title = "AlertSphere";
+  }, []);
 
   // const handleCaseChange = (data) => {
   //   setCaseData(data);
@@ -41,14 +45,13 @@ function Home() {
           <MapComponent
             center={mapCenter}
             hospitals={hospitals}
-            onHospitalChange={count => setHospitalsCount(count)}
-           
+            onHospitalChange={(count) => setHospitalsCount(count)}
           />
           <div className="map-overlay">
             <div className="map-searchbox z-100">
               <SearchBarComponent
                 onAddressSelect={(latLng) => {
-                  setMapCenter(latLng)
+                  setMapCenter(latLng);
                 }}
               />
             </div>
