@@ -13,6 +13,7 @@ import SettingDetail from "./SettingDetail";
 import { LoadScript } from "@react-google-maps/api";
 import HelpPage from "./HelpPage";
 import ContactUs from "./ContactUs";
+import UpdatePhone from "./UpdatePhone";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/updatephone" element={<UpdatePhone />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settingDetail" element={<SettingDetail />} />

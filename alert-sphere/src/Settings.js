@@ -3,11 +3,14 @@ import CardComponent from "./components/CardComponent";
 import SideBarComponent from "./components/SideBarComponent";
 import TopBarComponent from "./components/TopBarComponent";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SettingDetail from "./SettingDetail";
 import { Link } from "react-router-dom";
 
 function Settings() {
   const [showDetail, setShowDetail] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="h-screen flex flex-col">
       {/* Topbar */}
@@ -38,6 +41,10 @@ function Settings() {
                 {
                   text: "Change Password",
                   handler: () => console.log("Privacy rights clicked"),
+                },
+                {
+                  text: "Change Mobile Number",
+                  handler: () => navigate("/updatephone"),
                 },
                 {
                   text: "Change Email",

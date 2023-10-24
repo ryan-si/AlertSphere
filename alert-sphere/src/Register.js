@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LoadingSpinner from "./components/LoadingSpinnerComponent";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -26,9 +27,9 @@ export default function Register() {
 
   const handleAddressSelect = (value) => {
     setAddress(value);
-  }
+  };
   const searchOptions = {
-    componentRestrictions: { country: "au" }, 
+    componentRestrictions: { country: "au" },
   };
   return (
     <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8 bg-gray-200">
@@ -159,7 +160,12 @@ export default function Register() {
                   onSelect={handleAddressSelect}
                   searchOptions={searchOptions}
                 >
-                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
                     <div className="relative">
                       <input
                         {...getInputProps({
@@ -169,8 +175,12 @@ export default function Register() {
                       />
                       {suggestions.length > 0 && (
                         <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map(suggestion => {
+                          {loading && (
+                            <div className="h-screen flex flex-col relative">
+                              <LoadingSpinner />
+                            </div>
+                          )}
+                          {suggestions.map((suggestion) => {
                             const className = suggestion.active
                               ? "p-4 cursor-pointer bg-gray-100"
                               : "p-4 cursor-pointer";

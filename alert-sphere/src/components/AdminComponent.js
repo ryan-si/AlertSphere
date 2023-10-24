@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LoadingSpinner from "../components/LoadingSpinnerComponent";
 import "./ChatbotComponent.css";
 import useDiseases from "../hooks/useDiseases";
 import PlacesAutocomplete, {
@@ -118,7 +119,11 @@ function AdminComponent() {
                         />
                         {suggestions.length > 0 && (
                           <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md">
-                            {loading && <div>Loading...</div>}
+                            {loading && (
+                              <div className="h-screen flex flex-col relative">
+                                <LoadingSpinner />
+                              </div>
+                            )}
                             {suggestions.map((suggestion) => {
                               const className = suggestion.active
                                 ? "p-4 cursor-pointer bg-gray-100"
@@ -200,7 +205,7 @@ function AdminComponent() {
             setIsReportClicked(true);
             setIsAnnounceClicked(false);
           }}
-          className="m-2 px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-600 font-bold"
+          className="m-2 px-4 py-2 bg-gray-500 hover:bg-gray-400 text-white rounded  font-bold"
         >
           Report
         </button>
@@ -209,7 +214,7 @@ function AdminComponent() {
             setIsAnnounceClicked(true);
             setIsReportClicked(false);
           }}
-          className="m-2 px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-600 font-bold"
+          className="m-2 px-4 py-2 bg-gray-500 hover:bg-gray-400 text-white rounded  font-bold"
         >
           Announce
         </button>

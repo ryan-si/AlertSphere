@@ -8,7 +8,7 @@ function SideBarComponent() {
 
   const handleLogout = () => {
     // Send a POST request to the server to logout
-    fetch("http://10.19.229.4:8080/emergency/user/logout", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/user/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ function SideBarComponent() {
         // Remove the token from sessionStorage after successful logout
         sessionStorage.removeItem("token");
         // Optionally, redirect user to login page
-        window.location.href = "/login";
+        window.location.href = "/";
       })
       .catch((error) => {
         console.error("Error logging out:", error);

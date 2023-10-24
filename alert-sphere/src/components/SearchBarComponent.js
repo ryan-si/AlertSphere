@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import TopBarComponent from "./TopBarComponent";
+import SideBarComponent from "./SideBarComponent";
+import LoadingSpinner from "../components/LoadingSpinnerComponent";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -7,7 +10,7 @@ import PlacesAutocomplete, {
 const SearchBarComponent = ({ onAddressSelect }) => {
   const [address, setAddress] = useState("");
   const searchOptions = {
-    componentRestrictions: { country: "au" }, 
+    componentRestrictions: { country: "au" },
   };
 
   return (
@@ -36,8 +39,13 @@ const SearchBarComponent = ({ onAddressSelect }) => {
           />{" "}
           <div className="">
             {loading && (
-              <div className="-ml-2.5 bg-white border border-gray-300 p-2 cursor-pointer rounded hover:bg-blue-500">
-                Loading...
+              <div className="h-screen flex flex-col relative">
+                <TopBarComponent />
+                <div className="flex flex-1">
+                  <SideBarComponent />
+                  {/* <p>Loading...</p> */}
+                  <LoadingSpinner />
+                </div>
               </div>
             )}
             {suggestions.map((suggestion) => {

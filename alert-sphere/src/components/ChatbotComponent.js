@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import LoadingSpinner from "../components/LoadingSpinnerComponent";
+import SideBarComponent from "./SideBarComponent";
+import TopBarComponent from "./TopBarComponent";
 import "./ChatbotComponent.css";
 
 function ChatbotComponent() {
@@ -87,7 +90,16 @@ function ChatbotComponent() {
                 {msg.content}
               </p>
             ))}
-            {loading && <p className="m-2">Loading...</p>}
+            {loading && (
+              <div className="h-screen flex flex-col relative">
+                <TopBarComponent />
+                <div className="flex flex-1">
+                  <SideBarComponent />
+                  {/* <p>Loading...</p> */}
+                  <LoadingSpinner />
+                </div>
+              </div>
+            )}
             {error && <p className="m-2 text-red-500">{error}</p>}
           </div>
         </>
