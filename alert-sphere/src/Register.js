@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 import "./Register.css";
 import useRegister from "./hooks/useRegister";
 export default function Register() {
@@ -16,7 +20,16 @@ export default function Register() {
     address,
     setAddress,
   } = useRegister();
+  const handleAddressChange = (value) => {
+    setAddress(value);
+  };
 
+  const handleAddressSelect = (value) => {
+    setAddress(value);
+  }
+  const searchOptions = {
+    componentRestrictions: { country: "au" }, 
+  };
   return (
     <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8 bg-gray-200">
       <div className="w-full sm:max-w-md bg-white rounded-lg shadow">
@@ -140,14 +153,42 @@ export default function Register() {
                 </div> */}
               </div>
               <div className="mt-2">
-                <input
-                  id="address1"
-                  name="address1"
-                  type="address1"
-                  required
-                  onChange={(event) => setAddress(event.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={handleAddressChange}
+                  onSelect={handleAddressSelect}
+                  searchOptions={searchOptions}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div className="relative">
+                      <input
+                        {...getInputProps({
+                          placeholder: "Search Places ...",
+                          className: "block w-full p-3 rounded mb-4 border",
+                        })}
+                      />
+                      {suggestions.length > 0 && (
+                        <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? "p-4 cursor-pointer bg-gray-100"
+                              : "p-4 cursor-pointer";
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </PlacesAutocomplete>
               </div>
             </div>
 

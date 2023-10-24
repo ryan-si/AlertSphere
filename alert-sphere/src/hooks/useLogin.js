@@ -17,7 +17,7 @@ export function useLogin() {
 
   function login(event) {
     event.preventDefault();
-    const url = "http://10.19.229.4:8080/emergency/user/login";
+    const url = "http://192.168.50.237:8080/emergency/user/login";
     fetch(url, {
       method: "POST",
       headers: {

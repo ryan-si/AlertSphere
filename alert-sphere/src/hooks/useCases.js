@@ -5,7 +5,7 @@ function useCases() {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         // Fetch all cases
-        fetch("http://10.19.229.4:8080/emergency/cases", {
+        fetch("http://192.168.50.237:8080/emergency/cases", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -16,7 +16,7 @@ function useCases() {
             .then(data => {
                 // For each case, fetch the disease name
                 const promises = data.map(caseItem => {
-                    return fetch(`http://10.19.229.4:8080/emergency/disease/${caseItem.disease_id}`, {
+                    return fetch(`http://192.168.50.237:8080/emergency/disease/${caseItem.disease_id}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -28,7 +28,8 @@ function useCases() {
                                 case_id: caseItem.case_id,
                                 latitude: caseItem.latitude,
                                 longitude: caseItem.longitude,
-                                disease_name: diseaseData.data.disease_name
+                                disease_name: diseaseData.data.disease_name,
+                                disease_level:diseaseData.data.disease_level
                             };
                         });
                 });

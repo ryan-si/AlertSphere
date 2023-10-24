@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import { GoogleMap, Marker } from '@react-google-maps/api';
-//import useCases from "../hooks/useCases";
-
-function MapComponent({ center, hospitals, cases, onHospitalChange }) {
-
+import { getColorForDisease } from '../utils/colorUtils';
+//import CenterMarkerComponent from './CenterMarkerComponent';
+import HospitalMarkerComponent from './HospitalMarkerComponent';
+//import CaseMarkers from './CaseMarkers';
+function MapComponent({ center, hospitals, onHospitalChange, }) {
+/*global google*/
   //const cases = useCases();
   const mapRef = useRef(null);
 
@@ -22,8 +24,22 @@ function MapComponent({ center, hospitals, cases, onHospitalChange }) {
           }
           return false;
         }).length;
+        onHospitalChange(hospitalsCount);
+        // const casesWithinBounds = cases.filter(caseItem => {
+        //   const isValidCoordinate = typeof caseItem.latitude === 'number' && typeof caseItem.longitude === 'number';
+        //   if (isValidCoordinate) {
+        //     const casePosition = new window.google.maps.LatLng(caseItem.latitude, caseItem.longitude);
+        //     return newBounds.contains(casePosition);
+        //   }
+        //   return false;
+        // });
 
-        onHospitalChange(hospitalsCount);  // Pass the count to the parent component
+        // // Group by disease name and count
+        // const casesCount = casesWithinBounds.reduce((acc, caseItem) => {
+        //   acc[caseItem.disease_name] = (acc[caseItem.disease_name] || 0) + 1;
+        //   return acc;
+        // }, {});
+        // onCaseChange(casesCount);
       }
     }
   };
@@ -49,59 +65,13 @@ function MapComponent({ center, hospitals, cases, onHospitalChange }) {
         },
       }}
     >
-      {
-        <Marker
-          position={center}
-          icon={{
-            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-          }}
-        />
-
-      }
-      {/*cases.map(caseItem => (
-        <Marker
-          key={caseItem.case_id}
-          position={{ lat: caseItem.latitude, lng: caseItem.longitude }}
-          icon={{
-            path: window.google.maps.SymbolPath.CIRCLE,
-            fillColor: 'red',
-            fillOpacity: 1,
-            strokeWeight: 0,
-            scale: 5
-          }}
-          onClick={() => {
-            // Fetch disease_name from the backend and display it
-            fetch(`http://10.19.229.4:8080/emergency/disease/${caseItem.disease_id}`)
-              .then(response => response.json())
-              .then(data => {
-                // Display disease_name
-                alert(`Case ID: ${caseItem.case_id}, Disease: ${data.data.disease_name}`);
-              });
-          }}
-        />
-        ))*/}
-      {hospitals.map(hospital => {
-        const isValidCoordinate = typeof hospital.latitude === 'number' && typeof hospital.longitude === 'number';
-
-        if (isValidCoordinate && mapRef.current) {
-          const bounds = mapRef.current.getBounds();
-          const hospitalPosition = new window.google.maps.LatLng(hospital.latitude, hospital.longitude);
-
-          if (bounds && bounds.contains(hospitalPosition)) {
-            return (
-              <Marker
-                key={hospital.reporting_unit_name}
-                position={{ lat: hospital.latitude, lng: hospital.longitude }}
-                icon={{
-                  url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-                }}
-                onClick={() => alert(hospital.reporting_unit_name)}
-              />
-            );
-          }
-        }
-        return null;
-      })}
+      {<Marker
+        position={center}
+        icon={{
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        }}
+      />}
+      <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} /> 
 
 
 

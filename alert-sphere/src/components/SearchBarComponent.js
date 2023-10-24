@@ -7,7 +7,7 @@ import PlacesAutocomplete, {
 const SearchBarComponent = ({ onAddressSelect }) => {
   const [address, setAddress] = useState("");
   const searchOptions = {
-    componentRestrictions: { country: "au" }, // 仅限制在澳大利亚搜索地址
+    componentRestrictions: { country: "au" }, 
   };
 
   return (

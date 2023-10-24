@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./ChatbotComponent.css";
-
+import useDiseases from '../hooks/useDiseases';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 function AdminComponent() {
+  const { diseases, submitDiseaseData } = useDiseases();
   const [responses, setResponses] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -10,21 +12,67 @@ function AdminComponent() {
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
-  const [caseType, setCaseType] = useState(""); 
+  const [selectedDiseaseID, setSelectedDiseaseID] = useState(null);
+  const [location, setLocation] = useState('');
+  const [caseType, setCaseType] = useState("");
 
-  const handleCaseTypeChange = (e) => {
-    setCaseType(e.target.value);
+
+  const [coordinates, setCoordinates] = useState(null);
+
+  const handleDiseaseSelect = (event) => {
+    setSelectedDiseaseID(event.target.value);
   };
 
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
+  const handleSelect = async (value) => {
+    setLocation(value);
+    try {
+      const results = await geocodeByAddress(value);
+      const latLng = await getLatLng(results[0]);
+      setCoordinates(latLng);
+    } catch (error) {
+      console.error('Error fetching coordinates for address:', error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedDiseaseID || !coordinates) {
+      alert('Please select a disease type and location first.');
+      return;
+    }
+
+    const token = sessionStorage.getItem("token");
+
+    try {
+      const response = await fetch('http://192.168.50.237:8080/emergency/diseases', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          disease_id: selectedDiseaseID,
+          latitude: coordinates.lat,
+          longitude: coordinates.lng
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit case data');
+      }
+
+      const data = await response.json();
+      console.log('Submitted data:', data);
+      alert('Reported successfully!');
+    } catch (error) {
+      console.error('Error reporting the data:', error);
+      alert('Failed to report data. Please try again.');
+    }
   };
 
   return (
     <div
-      className={`chatbot-container rounded-md flex flex-col ${
-        isOpen ? "w-4-5 h-1/2" : "h-auto"
-      }`}
+      className={`chatbot-container rounded-md flex flex-col ${isOpen ? "w-4-5 h-1/2" : "h-auto"
+        }`}
       onClick={() => setIsOpen(true)}
     >
       {isOpen && (
@@ -54,31 +102,17 @@ function AdminComponent() {
                   <select
                     id="caseType"
                     className="block w-full p-2 border rounded"
-                    onChange={handleCaseTypeChange}
+                    value={selectedDiseaseID}
+                    onChange={handleDiseaseSelect}
                   >
-                    <option value="covid-19">COVID-19</option>
-                    <option value="flu">Flu</option>
-                    <option value="ebola">Ebola</option>
-                    <option value="other">Other</option>
+                    <option value="" disabled>Select a disease</option>
+                    {diseases.map(disease => (
+                      <option key={disease.disease_id} value={disease.disease_id}>
+                        {disease.disease_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
-
-                {caseType === "other" && ( // 使用条件渲染
-                  <div>
-                    <label
-                      htmlFor="customCaseType"
-                      className="block text-lg font-semibold mb-2"
-                    >
-                      If other, please specify:
-                    </label>
-                    <input
-                      type="text"
-                      id="customCaseType"
-                      className="block w-full p-2 border rounded"
-                      placeholder="Type the disease name"
-                    />
-                  </div>
-                )}
 
                 <div>
                   <label
@@ -87,15 +121,48 @@ function AdminComponent() {
                   >
                     Location
                   </label>
-                  <input
-                    type="text"
-                    id="location"
-                    className="block w-full p-2 border rounded"
-                    placeholder="Type the location"
-                  />
+                  <PlacesAutocomplete
+                    value={location}
+                    onChange={setLocation}
+                    onSelect={handleSelect}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div className="relative">
+                        <input
+                          {...getInputProps({
+                            id: 'location',
+                            className: 'block w-full p-2 border rounded',
+                            placeholder: 'Type the location'
+                          })}
+                        />
+                        {suggestions.length > 0 && (
+                          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md">
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                              const className = suggestion.active
+                                ? "p-4 cursor-pointer bg-gray-100"
+                                : "p-4 cursor-pointer";
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
                 </div>
 
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                  onClick={handleSubmit}
+                >
                   Report to system
                 </button>
               </div>
