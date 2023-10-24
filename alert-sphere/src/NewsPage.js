@@ -29,7 +29,6 @@ function NewsPage() {
       <TopBarComponent />
       <div className="flex-1 flex overflow-hidden">
         <div className="w-1/3 overflow-y-auto">
-          {console.log(newsList)}
           {newsList.map((news, index) => (
             <NewsListCard key={index} news={news} onClick={setSelectedNews} />
           ))}

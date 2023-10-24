@@ -9,7 +9,7 @@ import SearchBarComponent from "./components/SearchBarComponent";
 import AskMeComponent from "./components/AskMeComponent";
 import AdminComponent from "./components/AdminComponent";
 import useHospitals from "./hooks/useHospitals";
-
+//import useCases from "./hooks/useCases";
 // const token = sessionStorage.getItem("token");
 // const email = sessionStorage.getItem("email");
 
@@ -20,6 +20,7 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
+  //const cases=useCases();
   const [hospitalsCount, setHospitalsCount] = useState(14);
 
   const diseases = [
@@ -118,7 +119,7 @@ function Home() {
 
         <div className="chat-bot z-50">
           {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
-          <AdminComponent />
+          <ChatbotComponent />
 
         </div>
       </main>

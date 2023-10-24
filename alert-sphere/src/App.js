@@ -16,7 +16,7 @@ import HelpPage from "./HelpPage";
 function App() {
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyCxBkbx6cQ88YShFQTJLXBlhTu3mcupSv0"
+      googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
       libraries={["places"]}
     >
       <BrowserRouter>

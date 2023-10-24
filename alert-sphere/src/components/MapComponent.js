@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { GoogleMap, Marker } from '@react-google-maps/api';
 //import useCases from "../hooks/useCases";
 
-function MapComponent({ center, hospitals,onHospitalChange }) {
+function MapComponent({ center, hospitals, cases, onHospitalChange }) {
 
   //const cases = useCases();
   const mapRef = useRef(null);

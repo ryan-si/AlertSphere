@@ -6,7 +6,7 @@ function useWarnings(apiKey) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://newsapi.org/v2/everything?q=disease&language=en&apiKey=ea96b051dee542caab35b59d44d7047b')
+    fetch(`https://newsapi.org/v2/everything?q=disease&language=en&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('An error occurred while fetching data.');
@@ -16,6 +16,7 @@ function useWarnings(apiKey) {
       .then(result => {
         setData(result.articles); 
         setLoading(false);
+       
       })
       .catch(err => {
         setError(err);
