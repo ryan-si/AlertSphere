@@ -5,7 +5,7 @@ function useDiseases() {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         // Fetch diseases from the API
-        fetch("http://192.168.50.237:8080/emergency/disease", {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/diseases`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

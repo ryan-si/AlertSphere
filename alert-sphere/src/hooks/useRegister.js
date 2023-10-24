@@ -11,7 +11,7 @@ function useRegister() {
 
   function register(event) {
     event.preventDefault();
-    const url = `http://10.19.229.4:8080/emergency/user/register`;
+    const url = `http://${process.env.REACT_APP_API_BASE_URL}:8080/emergency/user/register`;
     fetch(url, {
       method: "POST",
       headers: { accept: "application/json", "Content-Type": "application/json" },

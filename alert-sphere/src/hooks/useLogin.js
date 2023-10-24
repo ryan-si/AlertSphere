@@ -7,7 +7,7 @@ export function useLogin() {
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState("");
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     if (storedToken) {
@@ -15,9 +15,11 @@ export function useLogin() {
     }
   }, []);
 
+
   function login(event) {
     event.preventDefault();
-    const url = "http://192.168.50.237:8080/emergency/user/login";
+    const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/user/login`;
+    console.log(url)
     fetch(url, {
       method: "POST",
       headers: {
