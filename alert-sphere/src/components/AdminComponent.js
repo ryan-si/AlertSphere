@@ -7,13 +7,6 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 function AdminComponent() {
   const { diseases, submitDiseaseData } = useDiseases();
-<<<<<<< Updated upstream
-  const [responses, setResponses] = useState([]);
-  const [inputText, setInputText] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-=======
->>>>>>> Stashed changes
   const [isOpen, setIsOpen] = useState(false);
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
