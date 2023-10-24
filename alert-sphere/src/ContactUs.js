@@ -10,7 +10,7 @@ function ContactUs() {
       <div className="flex flex-grow">
         <SideBarComponent />
 
-        <div className="p-8 flex-grow bg-white rounded-l-lg shadow-md">
+        <div className="p-8 flex-grow bg-white rounded-l-lg shadow-md w-[250px]">
           <h1 className="text-3xl font-bold mb-6 text-gray-700 border-b pb-4">
             Contact Us
           </h1>
