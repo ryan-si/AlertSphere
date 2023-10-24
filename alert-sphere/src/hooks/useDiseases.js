@@ -5,7 +5,7 @@ function useDiseases() {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         // Fetch diseases from the API
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/diseases`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/disease`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -14,6 +14,7 @@ function useDiseases() {
             .then(response => response.json())
             .then(data => {
                 setDiseases(data);
+                console.log(data)
             })
             .catch(error => {
                 console.error("Error fetching diseases:", error);
