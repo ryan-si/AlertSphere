@@ -21,13 +21,7 @@ function useDiseases() {
       });
   }, []);
 
-  const submitDiseaseData = (disease_id, lat, lng) => {
-    // Submit data to backend (add your backend endpoint and logic here)
-    // For demonstration purposes, we'll just console log the data
-    console.log("Submitting data:", { disease_id, lat, lng });
-  };
-
-  return { diseases, submitDiseaseData };
+  return { diseases};
 }
 
 export default useDiseases;
