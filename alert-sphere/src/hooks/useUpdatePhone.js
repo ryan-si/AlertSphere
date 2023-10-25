@@ -12,13 +12,16 @@ function useUpdatePhone() {
 
     // Verify the current password and then update the phone number.
     // For demonstration purposes, I'm assuming a simple fetch to an API endpoint.
-    fetch("/api/updatePhone", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password, phone }),
-    })
+    fetch(
+      `http://${process.env.REACT_APP_API_BASE_URL}:8080/emergency/user/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password, phone }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

@@ -40,7 +40,7 @@ function Settings() {
               actions={[
                 {
                   text: "Change Password",
-                  handler: () => console.log("Privacy rights clicked"),
+                  handler: () => navigate("/updatepassword"),
                 },
                 {
                   text: "Change Mobile Number",
@@ -48,11 +48,11 @@ function Settings() {
                 },
                 {
                   text: "Change Email",
-                  handler: () => console.log("Another action"),
+                  handler: () => navigate("/updateemail"),
                 },
                 {
                   text: "Change Location",
-                  handler: () => console.log("Another action"),
+                  handler: () => navigate("/updateaddress"),
                 },
               ]}
             />
