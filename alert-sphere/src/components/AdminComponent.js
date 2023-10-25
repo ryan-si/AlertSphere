@@ -2,49 +2,59 @@ import React, { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinnerComponent";
 import "./ChatbotComponent.css";
 import useDiseases from "../hooks/useDiseases";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+import PlacesAutocomplete from "react-places-autocomplete";
+
 function AdminComponent() {
-  const { diseases, submitDiseaseData } = useDiseases();
   const [isOpen, setIsOpen] = useState(false);
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
-  const [selectedDiseaseID, setSelectedDiseaseID] = useState(null);
+  const [selectedDiseaseID, setSelectedDiseaseID] = useState(undefined);
   const [location, setLocation] = useState("");
-  const [coordinates, setCoordinates] = useState(null);
+  const diseases = useDiseases();
 
   const handleDiseaseSelect = (event) => {
     setSelectedDiseaseID(event.target.value);
   };
 
-  const handleSelect = async (value) => {
+  const handleSelect = (value) => {
     setLocation(value);
-    try {
-      const results = await geocodeByAddress(value);
-      const latLng = await getLatLng(results[0]);
-      setCoordinates(latLng);
-    } catch (error) {
-      console.error("Error fetching coordinates for address:", error);
-    }
   };
 
   const handleSubmit = async () => {
-    if (!selectedDiseaseID || !coordinates) {
+    if (!selectedDiseaseID || !location) {
       alert("Please select a disease type and location first.");
       return;
     }
-
-    const token = sessionStorage.getItem("token");
+  
+    const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases`;
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          diseaseID: selectedDiseaseID,
+          location: location
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const responseData = await response.json();
+      console.log("Data updated successfully:", responseData);
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
   };
 
   return (
     <div
-      className={`chatbot-container rounded-md flex flex-col ${
-        isOpen ? "w-4-5 h-1/2" : "h-auto"
-      }`}
+      className={`chatbot-container rounded-md flex flex-col ${isOpen ? "w-4-5 h-1/2" : "h-auto"
+        }`}
       onClick={() => setIsOpen(true)}
     >
       {isOpen && (
@@ -80,7 +90,8 @@ function AdminComponent() {
                     <option value="" disabled>
                       Select a disease
                     </option>
-                    {diseases.data.diseases.map((disease) => (
+                    {console.log(diseases)}
+                    {diseases && diseases.diseases.data.diseases.map((disease) => (
                       <option
                         key={disease.disease_id}
                         value={disease.disease_id}
@@ -102,6 +113,9 @@ function AdminComponent() {
                     value={location}
                     onChange={setLocation}
                     onSelect={handleSelect}
+                    searchOptions={{
+                      componentRestrictions: { country: "au" }
+                    }}
                   >
                     {({
                       getInputProps,
@@ -130,6 +144,7 @@ function AdminComponent() {
                                 : "p-4 cursor-pointer";
                               return (
                                 <div
+                                  key={suggestion.placeId}
                                   {...getSuggestionItemProps(suggestion, {
                                     className,
                                   })}
@@ -144,6 +159,8 @@ function AdminComponent() {
                     )}
                   </PlacesAutocomplete>
                 </div>
+                {console.log(location)}
+                {console.log(selectedDiseaseID)}
 
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
