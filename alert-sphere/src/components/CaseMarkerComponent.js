@@ -39,10 +39,7 @@ function CaseMarkerComponent({ cases, bounds }) {
   return (
     <div>
       {cases.map((caseItem) => {
-        const isValidCoordinate =
-          typeof caseItem.latitude === "number" &&
-          typeof caseItem.longitude === "number";
-        if (isValidCoordinate && bounds) {
+        if ( bounds) {
           const casePosition = new window.google.maps.LatLng(
             caseItem.latitude,
             caseItem.longitude
@@ -52,7 +49,7 @@ function CaseMarkerComponent({ cases, bounds }) {
             return (
               <div key={caseItem.case_id}>
                 <Marker
-                  position={{ lat: caseItem.latitude, lng: caseItem.longitude }}
+                  position={casePosition}
                   icon={{
                     path: google.maps.SymbolPath.CIRCLE,
                     fillColor: color,

@@ -19,7 +19,6 @@ function Home() {
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
-  //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
   const {cases, setCases} = useCases();
   const [hospitalsCount, setHospitalsCount] = useState(14);

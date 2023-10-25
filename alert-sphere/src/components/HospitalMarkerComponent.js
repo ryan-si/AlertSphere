@@ -5,10 +5,7 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
   return (
     <div>
       {hospitals.map((hospital) => {
-        const isValidCoordinate =
-          typeof hospital.latitude === "number" &&
-          typeof hospital.longitude === "number";
-        if (isValidCoordinate && bounds) {
+        if ( bounds) {
           const hospitalPosition = new window.google.maps.LatLng(
             hospital.latitude,
             hospital.longitude
@@ -17,7 +14,7 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
             return (
               <Marker
                 key={hospital.reporting_unit_name}
-                position={{ lat: hospital.latitude, lng: hospital.longitude }}
+                position={hospitalPosition}
                 icon={{
                   url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
                 }}

@@ -4,7 +4,7 @@ import { getColorForDisease } from "../utils/colorUtils";
 //import CenterMarkerComponent from './CenterMarkerComponent';
 import HospitalMarkerComponent from "./HospitalMarkerComponent";
 import CaseMarkerComponent from "./CaseMarkerComponent";
-  /*global google*/
+/*global google*/
 function MapComponent({
   center,
   hospitals,
@@ -14,7 +14,7 @@ function MapComponent({
 }) {
   const mapRef = useRef(null);
   const [setCases] = useState([]);
-
+  const [bounds, setBounds] = useState(null);
   useEffect(() => {
     if (mapRef.current) {
       handleBoundsChanged();
@@ -23,39 +23,32 @@ function MapComponent({
 
   const handleMapLoad = (map) => {
     mapRef.current = map;
-    handleBoundsChanged(); 
+    handleBoundsChanged();
   };
 
-  const [bounds, setBounds] = useState(null);
+
   const handleBoundsChanged = () => {
     if (mapRef.current) {
       const newBounds = mapRef.current.getBounds();
       if (!bounds || !newBounds.equals(bounds)) {
         setBounds(newBounds);
-
         const hospitalsCount = hospitals.filter((hospital) => {
-          const isValidCoordinate =
-            typeof hospital.latitude === "number" &&
-            typeof hospital.longitude === "number";
-          if (isValidCoordinate) {
             const hospitalPosition = new window.google.maps.LatLng(
               hospital.latitude,
               hospital.longitude
             );
             return newBounds.contains(hospitalPosition);
-          }
-          return false;
         }).length;
         onHospitalChange(hospitalsCount);
 
         const casesWithinBounds = cases.filter((caseItem) => {
           caseItem.latitude = parseFloat(caseItem.latitude);
           caseItem.longitude = parseFloat(caseItem.longitude);
-            const casePosition = new window.google.maps.LatLng(
-              caseItem.latitude,
-              caseItem.longitude
-            );
-            return newBounds.contains(casePosition);
+          const casePosition = new window.google.maps.LatLng(
+            caseItem.latitude,
+            caseItem.longitude
+          );
+          return newBounds.contains(casePosition);
         });
 
         // Group by disease name and count
@@ -67,7 +60,6 @@ function MapComponent({
       }
     }
   };
-
   return (
     <GoogleMap
       ref={(map) => {
