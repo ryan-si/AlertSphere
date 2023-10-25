@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PlacesAutocomplete from "react-places-autocomplete";
 import LoadingSpinner from './LoadingSpinnerComponent';
 import useDiseases from '../hooks/useDiseases';
-
+const token = sessionStorage.getItem("token");
 function ReportFormComponent() {
     const [selectedDiseaseID, setSelectedDiseaseID] = useState(undefined);
     const [location, setLocation] = useState("");
@@ -10,42 +10,43 @@ function ReportFormComponent() {
 
     const handleDiseaseSelect = (event) => {
         setSelectedDiseaseID(event.target.value);
-      };
-    
-      const handleSelect = (value) => {
+    };
+
+    const handleSelect = (value) => {
         setLocation(value);
-      };
-    
-      const handleSubmit = async () => {
+    };
+
+    const handleSubmit = async () => {
         if (!selectedDiseaseID || !location) {
-          alert("Please select a disease type and location first.");
-          return;
+            alert("Please select a disease type and location first.");
+            return;
         }
-      
+
         const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases`;
-      
+
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              diseaseID: selectedDiseaseID,
-              location: location
-            })
-          });
-      
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const responseData = await response.json();
-          console.log("Data updated successfully:", responseData);
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    diseaseID: selectedDiseaseID,
+                    location: location
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const responseData = await response.json();
+            console.log("Data updated successfully:", responseData);
         } catch (error) {
-          console.error("Error updating data:", error);
+            console.error("Error updating data:", error);
         }
-      };
-    
+    };
+
     return (
         <div className="p-6 bg-e5e7eb rounded space-y-4">
             <div>

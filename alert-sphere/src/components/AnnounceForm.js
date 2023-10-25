@@ -10,18 +10,14 @@ function AnnounceFormComponent() {
             alert("Please enter the title and content first.");
             return;
         }
-        const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/user/sendEmail?title=${title}&content=${content}`;
         try {
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    content: content,
-                    title: title
-                })
+                }
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');

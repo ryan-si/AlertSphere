@@ -9,9 +9,9 @@ export function getColorForDisease(diseaseName) {
 
   hash = Math.abs(hash);
 
-  const r = ((hash & 0xff0000) >> 16) % 128; // 限制在0-127
-  const g = ((hash & 0x00ff00) >> 8) % 128; // 限制在0-127
-  const b = (hash & 0x0000ff) % 128; // 限制在0-127
+  const r = (hash % 128) + 128; 
+  const g = ((hash & 0x00ff00) >> 8) % 128+64; 
+  const b = (hash & 0x0000ff) % 128+64; 
 
   return `rgb(${r},${g},${b})`;
 }
