@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Marker } from "@react-google-maps/api";
+import { Marker, InfoWindow } from "@react-google-maps/api";
 /*global google*/
 // import { getColorForDisease } from "./colorUtils";
 import { getColorForDisease } from "../utils/colorUtils";
@@ -35,6 +35,8 @@ function deleteCase(caseId) {
 // deleteCase(caseItem.case_id);
 
 function CaseMarkerComponent({ cases, bounds }) {
+  const [selectedCase, setSelectedCase] = useState(null);
+
   return (
     <div>
       {cases.map((caseItem) => {
@@ -49,18 +51,61 @@ function CaseMarkerComponent({ cases, bounds }) {
           if (bounds.contains(casePosition)) {
             const color = getColorForDisease(caseItem.disease_name);
             return (
-              <Marker
-                key={caseItem.case_id}
-                position={{ lat: caseItem.latitude, lng: caseItem.longitude }}
-                icon={{
-                  path: google.maps.SymbolPath.CIRCLE,
-                  fillColor: color,
-                  fillOpacity: 1,
-                  strokeWeight: 0,
-                  scale: 8,
-                }}
-                onClick={() => deleteCase(caseItem.case_id)}
-              />
+              <div key={caseItem.case_id}>
+                <Marker
+                  position={{ lat: caseItem.latitude, lng: caseItem.longitude }}
+                  icon={{
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: color,
+                    fillOpacity: 1,
+                    strokeWeight: 0,
+                    scale: 8,
+                  }}
+                  onClick={() => setSelectedCase(caseItem)}
+                />
+                {selectedCase && selectedCase.case_id === caseItem.case_id && (
+                  <InfoWindow
+                    position={{
+                      lat: caseItem.latitude,
+                      lng: caseItem.longitude,
+                    }}
+                    onCloseClick={() => setSelectedCase(null)}
+                  >
+                    <div>
+                      <h4 className="font-bold text-xl">
+                        {caseItem.disease_name}
+                      </h4>
+                      <p className="text-base">ID: {caseItem.case_id}</p>
+                      <p className="text-base">
+                        Level: {caseItem.disease_level}
+                      </p>
+                      <button
+                        className="text-sm"
+                        style={{
+                          backgroundColor: "red",
+                          color: "white",
+                          border: "none",
+                          padding: "5px 10px",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          marginTop: "10px",
+                        }}
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this case?"
+                            )
+                          ) {
+                            deleteCase(caseItem.case_id);
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </InfoWindow>
+                )}
+              </div>
             );
           }
         }

@@ -14,12 +14,18 @@ function MapComponent({
   /*global google*/
   //const cases = useCases();
   const mapRef = useRef(null);
+  const [setCases] = useState([]);
 
   useEffect(() => {
     if (mapRef.current) {
       handleBoundsChanged();
     }
   }, [mapRef.current]);
+
+  const handleMapLoad = (map) => {
+    mapRef.current = map;
+    handleBoundsChanged(); // 当地图加载完毕，立即触发边界改变处理
+  };
 
   const [bounds, setBounds] = useState(null);
   const handleBoundsChanged = () => {
@@ -42,7 +48,6 @@ function MapComponent({
           return false;
         }).length;
         onHospitalChange(hospitalsCount);
-        // console.log(cases);
         const casesWithinBounds = cases.filter((caseItem) => {
           caseItem.latitude = parseFloat(caseItem.latitude);
           caseItem.longitude = parseFloat(caseItem.longitude);
@@ -76,6 +81,7 @@ function MapComponent({
           mapRef.current = map.state.map;
         }
       }}
+      onLoad={handleMapLoad}
       onBoundsChanged={handleBoundsChanged}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       center={center}
@@ -99,7 +105,7 @@ function MapComponent({
         />
       }
       <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} />
-      <CaseMarkerComponent cases={cases} bounds={bounds} />
+      <CaseMarkerComponent cases={cases} bounds={bounds} setCases={setCases} />
     </GoogleMap>
   );
 }
