@@ -13,15 +13,14 @@ function useDiseases() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setDiseases(data);
-        // console.log(data)
+        setDiseases(data.data.diseases);
       })
       .catch((error) => {
         console.error("Error fetching diseases:", error);
       });
   }, []);
 
-  return { diseases};
+  return diseases;
 }
 
 export default useDiseases;
