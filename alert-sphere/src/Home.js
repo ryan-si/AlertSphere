@@ -21,8 +21,8 @@ function Home() {
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   //const [markerPosition, setMarkerPosition] = useState(null);
   const hospitals = useHospitals();
-  const cases = useCases();
-  const [hospitalsCount, setHospitalsCount] = useState(0);
+  const {cases, setCases} = useCases();
+  const [hospitalsCount, setHospitalsCount] = useState(14);
   const [caseData, setCaseData] = useState({});
 
   useEffect(() => {
@@ -37,11 +37,10 @@ function Home() {
   return (
     <div className="home-page">
       <SideBarComponent />
-
       <main className="content">
         <TopBarComponent />
-
         <div className="map">
+
           <MapComponent
             center={mapCenter}
             hospitals={hospitals}

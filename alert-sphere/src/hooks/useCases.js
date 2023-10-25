@@ -37,7 +37,6 @@ function useCases() {
               return diseaseResponse.json();
             })
             .then((diseaseData) => {
-              // console.log("diseaseData", diseaseData);
               return {
                 case_id: caseItem.case_id,
                 latitude: caseItem.latitude,
@@ -58,7 +57,7 @@ function useCases() {
       });
   }, []);
 
-  return cases;
+  return {cases, setCases};
 }
 
 export default useCases;

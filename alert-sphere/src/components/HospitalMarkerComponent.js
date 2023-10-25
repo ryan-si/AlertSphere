@@ -3,7 +3,7 @@ import { Marker } from "@react-google-maps/api";
 
 function HospitalMarkerComponent({ hospitals, bounds }) {
   return (
-    <>
+    <div>
       {hospitals.map((hospital) => {
         const isValidCoordinate =
           typeof hospital.latitude === "number" &&
@@ -28,7 +28,7 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
         }
         return null;
       })}
-    </>
+    </div>
   );
 }
 

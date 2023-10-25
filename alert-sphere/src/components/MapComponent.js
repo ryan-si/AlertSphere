@@ -4,6 +4,7 @@ import { getColorForDisease } from "../utils/colorUtils";
 //import CenterMarkerComponent from './CenterMarkerComponent';
 import HospitalMarkerComponent from "./HospitalMarkerComponent";
 import CaseMarkerComponent from "./CaseMarkerComponent";
+  /*global google*/
 function MapComponent({
   center,
   hospitals,
@@ -11,8 +12,6 @@ function MapComponent({
   onCaseChange,
   cases,
 }) {
-  /*global google*/
-  //const cases = useCases();
   const mapRef = useRef(null);
   const [setCases] = useState([]);
 
@@ -24,7 +23,7 @@ function MapComponent({
 
   const handleMapLoad = (map) => {
     mapRef.current = map;
-    handleBoundsChanged(); // 当地图加载完毕，立即触发边界改变处理
+    handleBoundsChanged(); 
   };
 
   const [bounds, setBounds] = useState(null);
@@ -48,20 +47,15 @@ function MapComponent({
           return false;
         }).length;
         onHospitalChange(hospitalsCount);
+
         const casesWithinBounds = cases.filter((caseItem) => {
           caseItem.latitude = parseFloat(caseItem.latitude);
           caseItem.longitude = parseFloat(caseItem.longitude);
-          const isValidCoordinate =
-            typeof caseItem.latitude === "number" &&
-            typeof caseItem.longitude === "number";
-          if (isValidCoordinate) {
             const casePosition = new window.google.maps.LatLng(
               caseItem.latitude,
               caseItem.longitude
             );
             return newBounds.contains(casePosition);
-          }
-          return false;
         });
 
         // Group by disease name and count

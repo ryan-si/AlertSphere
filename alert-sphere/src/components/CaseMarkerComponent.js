@@ -17,7 +17,8 @@ function deleteCase(caseId) {
   })
     .then((response) => {
       if (response.ok) {
-        console.log(`Case with ID ${caseId} deleted successfully.`);
+        alert(`Case with ID ${caseId} deleted successfully.`);
+        window.location.reload();
       } else {
         console.error(`Error deleting case with ID ${caseId}.`);
       }
@@ -31,8 +32,6 @@ function deleteCase(caseId) {
     });
 }
 
-// Usage example:
-// deleteCase(caseItem.case_id);
 
 function CaseMarkerComponent({ cases, bounds }) {
   const [selectedCase, setSelectedCase] = useState(null);
