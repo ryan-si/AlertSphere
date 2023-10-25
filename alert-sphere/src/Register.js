@@ -149,7 +149,7 @@ export default function Register() {
                     href="#"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
-                    Forgot password?
+                    Forgot Password?
                   </a>
                 </div> */}
               </div>
