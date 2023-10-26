@@ -1,11 +1,13 @@
-import React from "react";
-import { Marker } from "@react-google-maps/api";
+import React, { useState } from "react";
+import { Marker, InfoBox, InfoWindow } from "@react-google-maps/api";
 
 function HospitalMarkerComponent({ hospitals, bounds }) {
+  const [selectedHospital, setSelectedHospital] = useState(null);
+
   return (
     <div>
       {hospitals.map((hospital) => {
-        if ( bounds) {
+        if (bounds) {
           const hospitalPosition = new window.google.maps.LatLng(
             hospital.latitude,
             hospital.longitude
@@ -18,7 +20,7 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
                 icon={{
                   url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
                 }}
-                onClick={() => alert(hospital.reporting_unit_name)}
+                onClick={() => setSelectedHospital(hospital)}
               />
             );
           }

@@ -20,15 +20,16 @@ function Home() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   const hospitals = useHospitals();
-  const {cases, setCases} = useCases();
-  const [hospitalsCount, setHospitalsCount] = useState(14);
-  const [caseData, setCaseData] = useState({});
+  const cases = useCases();
+  const [hospitalsCount, setHospitalsCount] = useState(0);
+  const [caseData, setCaseData] = useState([]);
 
   useEffect(() => {
     document.title = "AlertSphere";
   }, []);
 
   const handleCaseChange = (data) => {
+    console.log("handleCaseChange", data);
     setCaseData(data);
   };
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
@@ -39,7 +40,6 @@ function Home() {
       <main className="content">
         <TopBarComponent />
         <div className="map">
-
           <MapComponent
             center={mapCenter}
             hospitals={hospitals}
@@ -79,9 +79,9 @@ function Home() {
         </div>
 
         <div className="chat-bot z-50">
-          {/*isAdmin ? <AdminComponent /> : <ChatbotComponent />*/}
-          {/* <ChatbotComponent /> */}
-          <AdminComponent />
+          {/* {isAdmin ? <AdminComponent /> : <ChatbotComponent />} */}
+          <ChatbotComponent />
+          {/* <AdminComponent /> */}
         </div>
       </main>
     </div>

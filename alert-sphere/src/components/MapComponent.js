@@ -26,18 +26,17 @@ function MapComponent({
     handleBoundsChanged();
   };
 
-
   const handleBoundsChanged = () => {
     if (mapRef.current) {
       const newBounds = mapRef.current.getBounds();
       if (!bounds || !newBounds.equals(bounds)) {
         setBounds(newBounds);
         const hospitalsCount = hospitals.filter((hospital) => {
-            const hospitalPosition = new window.google.maps.LatLng(
-              hospital.latitude,
-              hospital.longitude
-            );
-            return newBounds.contains(hospitalPosition);
+          const hospitalPosition = new window.google.maps.LatLng(
+            hospital.latitude,
+            hospital.longitude
+          );
+          return newBounds.contains(hospitalPosition);
         }).length;
         onHospitalChange(hospitalsCount);
 
@@ -91,7 +90,11 @@ function MapComponent({
         />
       }
       <HospitalMarkerComponent hospitals={hospitals} bounds={bounds} />
-      <CaseMarkerComponent cases={cases} bounds={bounds} setCases={setCases} />
+      <CaseMarkerComponent
+        cases={cases}
+        bounds={bounds}
+        onBoundsChanged={handleBoundsChanged}
+      />
     </GoogleMap>
   );
 }

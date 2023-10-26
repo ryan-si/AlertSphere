@@ -4,11 +4,15 @@ import { Marker, InfoWindow } from "@react-google-maps/api";
 /*global google*/
 // import { getColorForDisease } from "./colorUtils";
 import { getColorForDisease } from "../utils/colorUtils";
+import { type } from "@testing-library/user-event/dist/type";
 
-function deleteCase(caseId) {
+function deleteCase(caseId, cases) {
   const token = sessionStorage.getItem("token");
+  const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases/${caseId}`;
 
-  fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/cases/${caseId}`, {
+  console.log("cases", typeof cases);
+
+  fetch(url, {
     method: "DELETE", // Specify the DELETE method
     headers: {
       Authorization: `Bearer ${token}`,
@@ -24,14 +28,10 @@ function deleteCase(caseId) {
       }
       return response.json();
     })
-    .then((data) => {
-      console.log(data);
-    })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
-
 
 function CaseMarkerComponent({ cases, bounds }) {
   const [selectedCase, setSelectedCase] = useState(null);
@@ -39,7 +39,7 @@ function CaseMarkerComponent({ cases, bounds }) {
   return (
     <div>
       {cases.map((caseItem) => {
-        if ( bounds) {
+        if (bounds) {
           const casePosition = new window.google.maps.LatLng(
             caseItem.latitude,
             caseItem.longitude
@@ -51,7 +51,7 @@ function CaseMarkerComponent({ cases, bounds }) {
                 <Marker
                   position={casePosition}
                   icon={{
-                    path: google.maps.SymbolPath.CIRCLE,
+                    path: window.google.maps.SymbolPath.CIRCLE,
                     fillColor: color,
                     fillOpacity: 1,
                     strokeWeight: 0,
@@ -92,7 +92,7 @@ function CaseMarkerComponent({ cases, bounds }) {
                               "Are you sure you want to delete this case?"
                             )
                           ) {
-                            deleteCase(caseItem.case_id);
+                            deleteCase(caseItem.case_id, cases);
                           }
                         }}
                       >

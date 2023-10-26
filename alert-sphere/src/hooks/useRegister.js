@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function useRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,41 +11,50 @@ function useRegister() {
 
   function register(event) {
     event.preventDefault();
-    const url = `http://${process.env.REACT_APP_API_BASE_URL}:8080/emergency/user/register`;
+    const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/user/register`;
     fetch(url, {
       method: "POST",
-      headers: { accept: "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ user_email: email, password: password, name: name, mobile: mobile, address: address})
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_email: email,
+        password: password,
+        user_name: name,
+        phoneNumber: mobile,
+        userLocation: address,
+      }),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((res) => {
         if (res.code !== 200) {
           alert(res.msg);
           throw new Error(res.msg);
         }
+        // sessionStorage.setItem("token", res.data.token);
+        // sessionStorage.setItem("email", email);
+        console.log(res.code);
+        navigate("/login");
         return res;
       })
-      .then((res) => {
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("email", email);
-        navigate("/");
-      })
+      .then((res) => {})
       .catch((err) => setMsg(err.msg));
   }
 
   return {
-    email, 
-    setEmail, 
-    password, 
-    setPassword, 
-    name, 
-    setName, 
-    mobile, 
-    setMobile, 
-    address, 
+    email,
+    setEmail,
+    password,
+    setPassword,
+    name,
+    setName,
+    mobile,
+    setMobile,
+    address,
     setAddress,
-    msg, 
-    register
+    msg,
+    register,
   };
 }
 export default useRegister;
