@@ -19,7 +19,14 @@ function SideBarComponent() {
       .then((data) => {
         // console.log(data);
         // Remove the token from sessionStorage after successful logout
-        sessionStorage.removeItem("token");
+        sessionStorage.clear();
+        // sessionStorage.removeItem("token");
+        // sessionStorage.removeItem("email");
+        // sessionStorage.removeItem("is_admin");
+        // sessionStorage.removeItem("user_name");
+        // sessionStorage.removeItem("imgsrc");
+        // sessionStorage.removeItem("lat");
+        // sessionStorage.removeItem("lng");
         // Optionally, redirect user to login page
         window.location.href = "/";
       })

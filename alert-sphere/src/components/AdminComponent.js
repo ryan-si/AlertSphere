@@ -3,21 +3,20 @@ import LoadingSpinner from "../components/LoadingSpinnerComponent";
 import "./ChatbotComponent.css";
 import useDiseases from "../hooks/useDiseases";
 import PlacesAutocomplete from "react-places-autocomplete";
-import ReportFormComponent from './ReportFormComponent';
+import ReportFormComponent from "./ReportFormComponent";
 import AnnounceFormComponent from "./AnnounceForm";
 function AdminComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
+  console.log();
 
-  console.log()
-
-  
   return (
     <div
-      className={`chatbot-container rounded-md flex flex-col ${isOpen ? "w-4-5 h-1/2" : "h-auto"
-        }`}
+      className={`chatbot-container rounded-md flex flex-col ${
+        isOpen ? "w-4-5 h-3/5" : "h-auto"
+      }`}
       onClick={() => setIsOpen(true)}
     >
       {isOpen && (
@@ -35,17 +34,13 @@ function AdminComponent() {
           </button>
 
           <div className="animate-fade-in flex-grow">
-            {isReportClicked && (
-              <ReportFormComponent />
-            )}
-            {isAnnounceClicked && (
-              <AnnounceFormComponent/>
-            )}
+            {isReportClicked && <ReportFormComponent />}
+            {isAnnounceClicked && <AnnounceFormComponent />}
           </div>
         </>
       )}
 
-      <div className="p-2 border-t flex ">
+      <div className="p-2 border-t flex sticky bottom-0  overflow-hidden">
         <img
           src="Admin.png"
           alt="Company Logo"

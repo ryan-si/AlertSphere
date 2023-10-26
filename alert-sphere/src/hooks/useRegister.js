@@ -28,15 +28,18 @@ function useRegister() {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         if (res.code !== 200) {
-          alert(res.msg);
-          throw new Error(res.msg);
+          // alert(res.msg);
+          setMsg(res.msg);
+          // throw new Error(res.msg);
         }
-        // sessionStorage.setItem("token", res.data.token);
-        // sessionStorage.setItem("email", email);
-        console.log(res.code);
-        navigate("/login");
-        return res;
+
+        if (res.code === 200) {
+          console.log(res.code);
+          navigate("/login");
+          return res;
+        }
       })
       .then((res) => {})
       .catch((err) => setMsg(err.msg));

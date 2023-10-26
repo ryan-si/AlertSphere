@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Marker, InfoBox, InfoWindow } from "@react-google-maps/api";
+import { Marker, InfoWindow } from "@react-google-maps/api";
 
 function HospitalMarkerComponent({ hospitals, bounds }) {
   const [selectedHospital, setSelectedHospital] = useState(null);
@@ -27,6 +27,22 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
         }
         return null;
       })}
+
+      {/* Display InfoWindow for selected hospital */}
+      {selectedHospital && (
+        <InfoWindow
+          position={{
+            lat: selectedHospital.latitude,
+            lng: selectedHospital.longitude,
+          }}
+          onCloseClick={() => setSelectedHospital(null)}
+        >
+          <div>
+            <h2>{selectedHospital.reporting_unit_name}</h2>
+            {/* You can add more hospital details here */}
+          </div>
+        </InfoWindow>
+      )}
     </div>
   );
 }

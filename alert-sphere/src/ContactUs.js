@@ -21,7 +21,7 @@ function ContactUs() {
                 Company Background
               </h2>
               <p className="text-gray-700 leading-relaxed">
-                AlertSphere is developed by Group 17, a software company
+                AlertSphere is developed by EngiLion, a software company
                 dedicated to empowering individuals to take control of their
                 health and safety. Our team of experienced developers leverages
                 technology to provide users with the information they need to
@@ -29,7 +29,7 @@ function ContactUs() {
                 weather events, and other emergencies. By focusing on prevention
                 and early action, AlertSphere aims to help users stay one step
                 ahead. Our easy-to-use platform delivers vital alerts and health
-                guidance when and where users need it most. Group 17 is
+                guidance when and where users need it most. EngiLion is
                 committed to creating software that enables people worldwide to
                 live their healthiest, safest, and most informed lives.
               </p>

@@ -66,7 +66,7 @@ function Settings() {
                 },
               }}
             > */}
-            <CardComponent
+            {/* <CardComponent
               title="Warning and reminder"
               description="View the current alert settings, set the frequency of alert reminders, and modify the method of reminder types."
               actions={[
@@ -75,7 +75,7 @@ function Settings() {
                   handler: () => console.log("Privacy rights clicked"),
                 },
               ]}
-            />
+            /> */}
             {/* </Link> */}
           </div>
         </div>

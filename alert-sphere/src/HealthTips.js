@@ -42,7 +42,6 @@ function HealthTips() {
 
       <div className="flex flex-1">
         <SideBarComponent />
-
         <div className="flex-1 p-8 space-y-6 overflow-y-auto">
           <h1 className="text-2xl font-bold mt-4 mb-4">Health Tips</h1>
 

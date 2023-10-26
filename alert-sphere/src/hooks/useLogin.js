@@ -15,6 +15,10 @@ export function useLogin() {
     }
   }, []);
 
+  function getRandomNumber() {
+    return Math.floor(Math.random() * 10) + 1;
+  }
+
   function login(event) {
     event.preventDefault();
     const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/user/login`;
@@ -36,8 +40,17 @@ export function useLogin() {
         return res;
       })
       .then((res) => {
+        const randomNumber = getRandomNumber();
+        console.log(randomNumber);
+        const imgsrc = "ava" + randomNumber + ".png";
+        console.log(imgsrc);
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("email", email);
+        sessionStorage.setItem("is_admin", res.data.is_admin);
+        sessionStorage.setItem("user_name", res.data.user_name);
+        sessionStorage.setItem("imgsrc", imgsrc);
+        sessionStorage.setItem("lat", res.data.lat);
+        sessionStorage.setItem("lng", res.data.lng);
         navigate("/");
       })
       .catch((err) => setMsg(err.msg));

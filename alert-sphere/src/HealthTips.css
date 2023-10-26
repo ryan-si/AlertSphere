@@ -45,3 +45,17 @@
 .card-title {
   margin-top: 10px;
 }
+
+/* Fixing the SideBarComponent */
+.side-bar-fixed {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Adding left padding to the right-side content */
+.right-content-padding {
+  padding-left: 260px; /* Slightly more than the width of the sidebar to avoid any overlap */
+}

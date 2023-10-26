@@ -6,28 +6,32 @@ function useUpdateAddress() {
   const [address, setAddress] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+  const [user_name, setUserName] = useState(
+    sessionStorage.getItem("user_name") || ""
+  );
 
   function updateAddress(event) {
     event.preventDefault();
 
     // Assuming a backend API endpoint /emergency/user/updateAddress for updating user's address
-    fetch(
-      `http://${process.env.REACT_APP_API_BASE_URL}:8080/emergency/user/updateAddress`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ currentPassword, address }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/emergency/user/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        location: address,
+        password: currentPassword,
+        userName: user_name,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data.code === 200) {
           setMsg("Address Update Successful.");
-          navigate("/profile"); // Navigate to profile page after successful update
+          navigate("/settings");
         } else {
-          setMsg("Error Updating Address.");
+          setMsg(data.msg);
         }
       });
   }

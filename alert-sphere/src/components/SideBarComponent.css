@@ -1,5 +1,9 @@
 .sidebar {
+  position: sticky;
+  top: 0;
   width: 250px;
+  height: 100vh; /* 设置侧边栏的高度与视口高度相同 */
+  overflow-y: auto; /* 如果内容超出侧边栏的高度，允许滚动 */
   background-color: #f5f5f5;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -21,4 +25,18 @@
   position: absolute;
   left: 30px;
   bottom: 10px;
+}
+
+/* Fixing the SideBarComponent */
+.side-bar-fixed {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Adding left padding to the right-side content */
+.right-content-padding {
+  padding-left: 260px; /* Slightly more than the width of the sidebar to avoid any overlap */
 }

@@ -20,9 +20,9 @@ function Home() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const [mapCenter, setMapCenter] = useState({ lat: -33.8688, lng: 151.2093 });
   const hospitals = useHospitals();
-  const cases = useCases();
-  const [hospitalsCount, setHospitalsCount] = useState(0);
-  const [caseData, setCaseData] = useState([]);
+  const { cases, setCases } = useCases();
+  const [hospitalsCount, setHospitalsCount] = useState(14);
+  const [caseData, setCaseData] = useState({});
 
   useEffect(() => {
     document.title = "AlertSphere";
@@ -33,7 +33,9 @@ function Home() {
     setCaseData(data);
   };
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
-  const isAdmin = true;
+  // const isAdmin = false;
+  const isAdmin = sessionStorage.getItem("is_admin");
+  console.log("isAdmin", isAdmin);
   return (
     <div className="home-page">
       <SideBarComponent />
@@ -79,8 +81,8 @@ function Home() {
         </div>
 
         <div className="chat-bot z-50">
-          {/* {isAdmin ? <AdminComponent /> : <ChatbotComponent />} */}
-          <ChatbotComponent />
+          {isAdmin ? <AdminComponent /> : <ChatbotComponent />}
+          {/* <ChatbotComponent /> */}
           {/* <AdminComponent /> */}
         </div>
       </main>

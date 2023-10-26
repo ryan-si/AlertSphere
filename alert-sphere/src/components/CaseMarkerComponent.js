@@ -35,6 +35,7 @@ function deleteCase(caseId, cases) {
 
 function CaseMarkerComponent({ cases, bounds }) {
   const [selectedCase, setSelectedCase] = useState(null);
+  const isAdmin = sessionStorage.getItem("is_admin");
 
   return (
     <div>
@@ -75,29 +76,31 @@ function CaseMarkerComponent({ cases, bounds }) {
                       <p className="text-base">
                         Level: {caseItem.disease_level}
                       </p>
-                      <button
-                        className="text-sm"
-                        style={{
-                          backgroundColor: "red",
-                          color: "white",
-                          border: "none",
-                          padding: "5px 10px",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                          marginTop: "10px",
-                        }}
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you want to delete this case?"
-                            )
-                          ) {
-                            deleteCase(caseItem.case_id, cases);
-                          }
-                        }}
-                      >
-                        Delete
-                      </button>
+                      {isAdmin && (
+                        <button
+                          className="text-sm"
+                          style={{
+                            backgroundColor: "red",
+                            color: "white",
+                            border: "none",
+                            padding: "5px 10px",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            marginTop: "10px",
+                          }}
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Are you sure you want to delete this case?"
+                              )
+                            ) {
+                              deleteCase(caseItem.case_id, cases);
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </InfoWindow>
                 )}

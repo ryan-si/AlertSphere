@@ -209,6 +209,7 @@ export default function Register() {
               >
                 Sign up
               </button>
+              <div className="mt-4 text-center text-gray-600">{msg}</div>
             </div>
             <div>&nbsp;</div>
           </form>
