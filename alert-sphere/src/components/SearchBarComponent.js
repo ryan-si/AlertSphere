@@ -38,16 +38,7 @@ const SearchBarComponent = ({ onAddressSelect }) => {
             className="h-5 w-4.5 absolute top-0.5 right-2"
           />{" "}
           <div className="">
-            {loading && (
-              <div className="h-screen flex flex-col relative">
-                <TopBarComponent />
-                <div className="flex flex-1">
-                  <SideBarComponent />
-                  {/* <p>Loading...</p> */}
-                  <LoadingSpinner />
-                </div>
-              </div>
-            )}
+            {loading && <p>Loading...</p>}
             {suggestions.map((suggestion) => {
               const baseStyles =
                 "-ml-2.5 border border-gray-300 p-2 cursor-pointer rounded hover:bg-blue-500";

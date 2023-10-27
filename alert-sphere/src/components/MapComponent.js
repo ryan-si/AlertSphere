@@ -15,7 +15,7 @@ function MapComponent({
   const mapRef = useRef(null);
   const [setCases] = useState([]);
   const [bounds, setBounds] = useState(null);
-  let mapzoom = 15;
+  // let mapzoom = 15;
   useEffect(() => {
     if (mapRef.current) {
       handleBoundsChanged();
@@ -24,7 +24,7 @@ function MapComponent({
 
   const handleMapLoad = (map) => {
     mapRef.current = map;
-    mapzoom = 15;
+    // mapzoom = 15;
     handleBoundsChanged();
   };
 
@@ -72,7 +72,7 @@ function MapComponent({
       onBoundsChanged={handleBoundsChanged}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       center={center}
-      zoom={mapzoom}
+      zoom={15}
       options={{
         streetViewControl: false,
         mapTypeControl: false,

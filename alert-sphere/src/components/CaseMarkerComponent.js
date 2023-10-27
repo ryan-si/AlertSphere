@@ -63,8 +63,8 @@ function CaseMarkerComponent({ cases, bounds }) {
                 {selectedCase && selectedCase.case_id === caseItem.case_id && (
                   <InfoWindow
                     position={{
-                      lat: caseItem.latitude,
-                      lng: caseItem.longitude,
+                      lat: selectedCase.latitude,
+                      lng: selectedCase.longitude,
                     }}
                     onCloseClick={() => setSelectedCase(null)}
                   >
