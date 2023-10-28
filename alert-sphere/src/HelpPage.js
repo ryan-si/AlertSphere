@@ -69,7 +69,7 @@ function HelpPage() {
                 className="text-black hover:text-gray-600 transition"
                 onClick={() => setSelectedArticle(null)}
               >
-                ← Back to Help Articles
+                ← Back
               </button>
             </div>
           ) : (

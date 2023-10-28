@@ -9,9 +9,6 @@ import { type } from "@testing-library/user-event/dist/type";
 function deleteCase(caseId, cases) {
   const token = sessionStorage.getItem("token");
   const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases/${caseId}`;
-
-  console.log("cases", typeof cases);
-
   fetch(url, {
     method: "DELETE", // Specify the DELETE method
     headers: {
@@ -36,6 +33,7 @@ function deleteCase(caseId, cases) {
 function CaseMarkerComponent({ cases, bounds }) {
   const [selectedCase, setSelectedCase] = useState(null);
   const isAdmin = sessionStorage.getItem("is_admin");
+  const token = sessionStorage.getItem("token");
 
   return (
     <div>
@@ -60,10 +58,10 @@ function CaseMarkerComponent({ cases, bounds }) {
                   }}
                   onClick={() => setSelectedCase(caseItem)}
                 />
-                {selectedCase && selectedCase.case_id === caseItem.case_id && (
+                {selectedCase && token && selectedCase.case_id === caseItem.case_id && (
                      
-                  <div>
-                    {console.log(selectedCase)}
+               
+                              
                   <InfoWindow
                     position={{
                       lat: selectedCase.latitude,
@@ -108,7 +106,7 @@ function CaseMarkerComponent({ cases, bounds }) {
                     </div>
                   </InfoWindow>
                
-                  </div>
+              
                 )}
               </div>
             );

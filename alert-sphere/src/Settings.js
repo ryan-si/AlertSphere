@@ -18,7 +18,7 @@ function Settings() {
       <div className="flex flex-1">
         <SideBarComponent />
         <div className="flex-1 p-8 space-y-6 overflow-y-auto">
-          <h1 className="text-2xl font-bold">Welcome to use, Ryan.</h1>
+          <h1 className="text-2xl font-bold">Welcome to use.</h1>
           <p>
             Manage your own information, privacy, and security to better meet
             your needs with Google services.

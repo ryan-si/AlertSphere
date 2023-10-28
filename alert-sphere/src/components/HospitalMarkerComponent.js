@@ -3,6 +3,7 @@ import { Marker, InfoWindow } from "@react-google-maps/api";
 
 function HospitalMarkerComponent({ hospitals, bounds }) {
   const [selectedHospital, setSelectedHospital] = useState(null);
+  const token = sessionStorage.getItem("token");
 
   return (
     <div>
@@ -29,7 +30,7 @@ function HospitalMarkerComponent({ hospitals, bounds }) {
       })}
 
       {/* Display InfoWindow for selected hospital */}
-      {selectedHospital && (
+      {selectedHospital && token &&(
         <InfoWindow
           position={{
             lat: selectedHospital.latitude,
