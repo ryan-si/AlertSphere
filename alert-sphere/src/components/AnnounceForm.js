@@ -25,7 +25,6 @@ function AnnounceFormComponent() {
       }
       const responseData = await response.json();
       setMsg(responseData.msg);
-      console.log("Annoouncement uploaded successfully:", responseData);
     } catch (error) {
       console.error("Error updating data:", error);
     }
