@@ -29,13 +29,13 @@ function Home() {
   }, []);
 
   const handleCaseChange = (data) => {
-    console.log("handleCaseChange", data);
+    // console.log("handleCaseChange", data);
     setCaseData(data);
   };
   // const isAdmin = sessionStorage.getItem("isAdmin") === "1";
   // const isAdmin = false;
   const isAdmin = sessionStorage.getItem("is_admin");
-  console.log("isAdmin", isAdmin);
+  // console.log("isAdmin", isAdmin);
   return (
     <div className="home-page">
       <SideBarComponent />
@@ -81,7 +81,7 @@ function Home() {
         </div>
 
         <div className="chat-bot z-50">
-          {isAdmin ? <AdminComponent /> : <ChatbotComponent />}
+          {isAdmin&&isAdmin==='1' ? <AdminComponent /> : <ChatbotComponent />}
           {/* <ChatbotComponent /> */}
           {/* <AdminComponent /> */}
         </div>

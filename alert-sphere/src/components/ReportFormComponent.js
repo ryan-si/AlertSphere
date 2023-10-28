@@ -25,7 +25,7 @@ function ReportFormComponent() {
 
     const url = `${process.env.REACT_APP_API_BASE_URL}/emergency/cases`;
 
-    console.log("selectedDiseaseID", location);
+    // console.log("selectedDiseaseID", location);
 
     try {
       const response = await fetch(url, {
@@ -46,7 +46,7 @@ function ReportFormComponent() {
       }
       const responseData = await response.json();
       setMsg(responseData.msg);
-      console.log("Data updated successfully:", responseData);
+      // console.log("Data updated successfully:", responseData);
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -131,7 +131,7 @@ function ReportFormComponent() {
           )}
         </PlacesAutocomplete>
       </div>
-      {console.log(location)}
+      {/* {console.log(location)} */}
 
       <div
         style={{

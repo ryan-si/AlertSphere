@@ -67,18 +67,18 @@ function ChatbotComponent() {
 
   return (
     <div
-      className={`chatbot-container rounded-md flex flex-col ${
-        isOpen ? "w-4-5 h-1/2" : "h-auto"
-      }`}
+      className={`chatbot-container rounded-md flex flex-col ${isOpen ? "w-4-5 h-1/2" : "h-auto"
+        }`}
       onClick={() => setIsOpen(true)}
     >
       {isOpen && (
         <>
           <button
-            className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full p-1"
+            className="absolute top-2 right-2 w-8 h-8 text-gray-500 rounded-full p-1"
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(false);
+           
             }}
           >
             X

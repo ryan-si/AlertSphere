@@ -57,8 +57,8 @@ function AnnounceFormComponent() {
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
       </div>
-      {console.log(title)}
-      {console.log(content)}
+      {/* {console.log(title)}
+      {console.log(content)} */}
       <div
         style={{
           display: "flex",

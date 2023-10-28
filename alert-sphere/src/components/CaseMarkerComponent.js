@@ -61,6 +61,9 @@ function CaseMarkerComponent({ cases, bounds }) {
                   onClick={() => setSelectedCase(caseItem)}
                 />
                 {selectedCase && selectedCase.case_id === caseItem.case_id && (
+                     
+                  <div>
+                    {console.log(selectedCase)}
                   <InfoWindow
                     position={{
                       lat: selectedCase.latitude,
@@ -76,7 +79,7 @@ function CaseMarkerComponent({ cases, bounds }) {
                       <p className="text-base">
                         Level: {caseItem.disease_level}
                       </p>
-                      {isAdmin && (
+                      {isAdmin && isAdmin==='1'&&(
                         <button
                           className="text-sm"
                           style={{
@@ -101,8 +104,11 @@ function CaseMarkerComponent({ cases, bounds }) {
                           Delete
                         </button>
                       )}
+                      
                     </div>
                   </InfoWindow>
+               
+                  </div>
                 )}
               </div>
             );

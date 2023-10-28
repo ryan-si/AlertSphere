@@ -9,7 +9,7 @@ function TopBarComponent() {
     sessionStorage.getItem("user_name") || ""
   );
   const [imgsrc, setImgsrc] = useState(sessionStorage.getItem("imgsrc") || "");
-  console.log(imgsrc);
+  // console.log(imgsrc);
 
   return (
     <div className="login-status">

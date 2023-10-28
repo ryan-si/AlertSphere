@@ -10,8 +10,6 @@ function AdminComponent() {
   const [isReportClicked, setIsReportClicked] = useState(false);
   const [isAnnounceClicked, setIsAnnounceClicked] = useState(false);
 
-  console.log();
-
   return (
     <div
       className={`chatbot-container rounded-md flex flex-col ${
