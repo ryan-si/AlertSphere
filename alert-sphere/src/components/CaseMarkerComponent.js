@@ -54,60 +54,56 @@ function CaseMarkerComponent({ cases, bounds }) {
                     fillColor: color,
                     fillOpacity: 1,
                     strokeWeight: 0,
-                    scale: 8,
+                    scale: 5,
                   }}
                   onClick={() => setSelectedCase(caseItem)}
                 />
-                {selectedCase && token && selectedCase.case_id === caseItem.case_id && (
-                     
-               
-                              
-                  <InfoWindow
-                    position={{
-                      lat: selectedCase.latitude,
-                      lng: selectedCase.longitude,
-                    }}
-                    onCloseClick={() => setSelectedCase(null)}
-                  >
-                    <div>
-                      <h4 className="font-bold text-xl">
-                        {caseItem.disease_name}
-                      </h4>
-                      <p className="text-base">ID: {caseItem.case_id}</p>
-                      <p className="text-base">
-                        Level: {caseItem.disease_level}
-                      </p>
-                      {isAdmin && isAdmin==='1'&&(
-                        <button
-                          className="text-sm"
-                          style={{
-                            backgroundColor: "red",
-                            color: "white",
-                            border: "none",
-                            padding: "5px 10px",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                            marginTop: "10px",
-                          }}
-                          onClick={() => {
-                            if (
-                              window.confirm(
-                                "Are you sure you want to delete this case?"
-                              )
-                            ) {
-                              deleteCase(caseItem.case_id, cases);
-                            }
-                          }}
-                        >
-                          Delete
-                        </button>
-                      )}
-                      
-                    </div>
-                  </InfoWindow>
-               
-              
-                )}
+                {selectedCase &&
+                  token &&
+                  selectedCase.case_id === caseItem.case_id && (
+                    <InfoWindow
+                      position={{
+                        lat: selectedCase.latitude,
+                        lng: selectedCase.longitude,
+                      }}
+                      onCloseClick={() => setSelectedCase(null)}
+                    >
+                      <div>
+                        <h4 className="font-bold text-xl">
+                          {caseItem.disease_name}
+                        </h4>
+                        <p className="text-base">ID: {caseItem.case_id}</p>
+                        <p className="text-base">
+                          Level: {caseItem.disease_level}
+                        </p>
+                        {isAdmin && isAdmin === "1" && (
+                          <button
+                            className="text-sm"
+                            style={{
+                              backgroundColor: "red",
+                              color: "white",
+                              border: "none",
+                              padding: "5px 10px",
+                              borderRadius: "5px",
+                              cursor: "pointer",
+                              marginTop: "10px",
+                            }}
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to delete this case?"
+                                )
+                              ) {
+                                deleteCase(caseItem.case_id, cases);
+                              }
+                            }}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    </InfoWindow>
+                  )}
               </div>
             );
           }

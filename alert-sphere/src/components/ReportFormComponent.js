@@ -46,6 +46,7 @@ function ReportFormComponent() {
       }
       const responseData = await response.json();
       setMsg(responseData.msg);
+      window.location.reload();
       // console.log("Data updated successfully:", responseData);
     } catch (error) {
       console.error("Error updating data:", error);

@@ -33,6 +33,7 @@ export function useLogin() {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         if (res.code !== 200) {
           alert(res.msg);
           throw new Error(res.msg);
